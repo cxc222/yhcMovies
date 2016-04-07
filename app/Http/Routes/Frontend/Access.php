@@ -20,6 +20,9 @@ Route::group(['namespace' => 'Auth'], function () {
      * These routes require the user NOT be logged in
      */
     Route::group(['middleware' => 'guest'], function () {
+
+        Route::get('back/login', 'AuthController@showLoginForm')->name('auth.login');
+
         // Authentication Routes
         Route::get('login', 'AuthController@showLoginForm')
             ->name('auth.login');

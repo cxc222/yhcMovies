@@ -50,6 +50,10 @@ return [
                 'main' => '用户',
             ],
         ],
+        
+        'cms' => [
+            'title' => '文章管理'
+        ],
 
         'log-viewer' => [
             'main' => '日志浏览',
@@ -59,7 +63,8 @@ return [
 
         'sidebar' => [
             'dashboard' => '控制面板',
-            'general' => '通用',
+            'general' => '基础设置',
+            'cms' => '文章管理'
         ],
     ],
 

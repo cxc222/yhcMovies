@@ -56,6 +56,14 @@ return [
                 'update_password_error' => 'There was a problem changing this users password. Please try again.',
             ],
         ],
+        'cms' => [
+            'artics' => [
+                'create_error' => '文章发布失败, 请检查',
+                'delete_error' => '文章删除失败, 请重试',
+                'not_found' => '这篇文章已经被删除',
+                'update_error' => '文章更新失败'
+            ]
+        ]
     ],
 
     'frontend' => [

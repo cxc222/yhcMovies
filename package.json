@@ -6,8 +6,10 @@
     "run-sequence": "^1.1.5"
   },
   "dependencies": {
-    "laravel-elixir": "^4.0.0",
     "bootstrap-sass": "^3.0.0",
-    "font-awesome": "^4.5.0"
+    "bootstrap-tagsinput": "^0.7.1",
+    "font-awesome": "^4.5.0",
+    "laravel-elixir": "^4.0.0",
+    "simditor": "^2.3.6"
   }
 }

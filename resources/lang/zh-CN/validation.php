@@ -174,6 +174,18 @@ return [
                     'send_confirmation_email' => '发送确认邮件',
                 ],
             ],
+            'cms' => [
+                'article' => [
+                    'title' => '标题',
+                    'content' => '内容',
+                    'status' => '状态',
+                    'country' => '国家',
+                    'year' => '年限',
+                    'release_date' => '上映时间',
+                    'director' => '导演',
+                    'actors' => '演员'
+                ]
+            ]
         ],
 
         'frontend' => [

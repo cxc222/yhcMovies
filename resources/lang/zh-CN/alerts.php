@@ -41,6 +41,11 @@ return [
             'restored' => '成功恢复用户信息。',
             'updated' => '成功更新用户。',
             'updated_password' => "成功更新用户密码。",
+        ],
+        'articles' => [
+            'created' => '文章发布成功',
+            'deleted' => '删除文章成功',
+            'edited' => '文章更新成功'
         ]
     ],
 ];

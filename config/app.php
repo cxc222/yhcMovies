@@ -22,7 +22,7 @@ return [
 	|
 	| The application name for use within the UI of the application
 	*/
-    'name' => '月河城',
+    'name' => env('Site_Title', '月河城'),
 
     /*
     |--------------------------------------------------------------------------
@@ -61,7 +61,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'PRC',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\CmsServiceProvider::class,
 
         /*
          * Third Party Providers

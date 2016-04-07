@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,19 +19,22 @@
         @yield('after-styles-end')
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+        <link href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext" rel='stylesheet' type='text/css'>
     </head>
     <body id="app-layout">
-
-        @include('frontend.includes.nav')
-
         <div class="container">
-            @include('includes.partials.messages')
-            @yield('content')
-        </div><!-- container -->
+            <div class="container_wrap">
+                @include('frontend.includes.header')
+            </div>
+        </div>
+
+        {{--@include('includes.partials.messages')--}}
+        @yield('content')
+
+        @include('frontend.includes.footer')
 
         <!-- JavaScripts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{asset('js/vendor/jquery/jquery-2.1.4.min.js')}}"><\/script>')</script>
         {!! Html::script('js/vendor/bootstrap/bootstrap.min.js') !!}
 

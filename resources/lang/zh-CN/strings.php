@@ -39,7 +39,7 @@ return [
 
         'general' => [
             'all_rights_reserved' => 'All Rights Reserved.',
-            'are_you_sure' => 'Are you sure?',
+            'are_you_sure' => '确定要这样做?',
             'boilerplate_link' => 'Laravel 5 Boilerplate',
             'continue' => 'Continue',
             'member_since' => 'Member since',

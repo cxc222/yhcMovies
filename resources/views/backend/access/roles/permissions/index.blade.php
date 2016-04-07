@@ -136,15 +136,15 @@
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>{{ trans('labels.backend.access.permissions.table.permission') }}</th>
+                                    <th width="12%">{{ trans('labels.backend.access.permissions.table.permission') }}</th>
                                     <th>{{ trans('labels.backend.access.permissions.table.name') }}</th>
-                                    <th>{{ trans('labels.backend.access.permissions.table.dependencies') }}</th>
-                                    <th>{{ trans('labels.backend.access.permissions.table.users') }}</th>
-                                    <th>{{ trans('labels.backend.access.permissions.table.roles') }}</th>
-                                    <th>{{ trans('labels.backend.access.permissions.table.group') }}</th>
-                                    <th>{{ trans('labels.backend.access.permissions.table.group-sort') }}</th>
-                                    <th>{{ trans('labels.backend.access.permissions.table.system') }}</th>
-                                    <th>{{ trans('labels.general.actions') }}</th>
+                                    <th width="10%">{{ trans('labels.backend.access.permissions.table.dependencies') }}</th>
+                                    <th width="5%">{{ trans('labels.backend.access.permissions.table.users') }}</th>
+                                    <th width="5%">{{ trans('labels.backend.access.permissions.table.roles') }}</th>
+                                    <th width="8%">{{ trans('labels.backend.access.permissions.table.group') }}</th>
+                                    <th width="5%">{{ trans('labels.backend.access.permissions.table.group-sort') }}</th>
+                                    <th width="5%">{{ trans('labels.backend.access.permissions.table.system') }}</th>
+                                    <th width="5%">{{ trans('labels.general.actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>

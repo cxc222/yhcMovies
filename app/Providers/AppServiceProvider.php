@@ -29,6 +29,11 @@ class AppServiceProvider extends ServiceProvider
          * setLocale to use Carbon source locales. Enables diffForHumans() localized
          */
         Carbon::setLocale('zh');
+
+        /**
+         * seo
+         */
+        //$this->_seo();
     }
 
     /**
@@ -45,5 +50,9 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
             $this->app->register(\Laracasts\Generators\GeneratorsServiceProvider::class);
         }
+    }
+
+    public function _seo(){
+        view()->share('SiteTitle', config('app.name'));
     }
 }

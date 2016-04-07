@@ -8,6 +8,8 @@ Route::group([
     'middleware' => 'access.routeNeedsPermission:view-access-management',
 ], function() {
     Route::group(['namespace' => 'Article'], function () {
-        Route::resource('index', 'ArticleController', ['except' => ['show']]);
+        Route::resource('articles', 'ArticleController', ['except' => ['show']]);
+        //Route::get('articles/deleted', 'ArticleController@deleted')->name('admin.cms.articles.deleted');
+        
     });
 });

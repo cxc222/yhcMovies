@@ -22,7 +22,30 @@ elixir(function(mix) {
        'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
        'public/js/vendor/bootstrap'
      )
-
+     .copy(
+         'node_modules/simditor/site/assets/styles/',
+         'public/js/vendor/simditor/styles'
+     )
+     .copy(
+         'node_modules/simditor/site/assets/scripts/',
+         'public/js/vendor/simditor/js'
+     )
+     .copy(
+         'node_modules/simditor/site/assets/images/',
+         'public/js/vendor/simditor/images'
+     )
+     .copy(
+         'resources/assets/images/',
+         'public/build/images'
+     )
+     .copy(
+         'node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.less',
+         '/word/yhcMovies/resources/assets/less/plugin/bootstrap-tagsinput'
+     )
+     .copy(
+         'node_modules/bootstrap-tagsinput/dist/',
+         'resources/assets/js/plugin/bootstrap-tagsinput'
+     )
      /**
       * Process frontend SCSS stylesheets
       */
@@ -35,7 +58,8 @@ elixir(function(mix) {
       * Combine pre-processed frontend CSS files
       */
      .styles([
-        'frontend/app.css'
+        'frontend/app.css',
+        'frontend/style.css'
      ], 'public/css/frontend.css')
 
      /**
@@ -44,7 +68,8 @@ elixir(function(mix) {
      .scripts([
         'plugin/sweetalert/sweetalert.min.js',
         'plugins.js',
-        'frontend/app.js'
+        'frontend/app.js',
+        'frontend/responsiveslides.min.js',
      ], 'public/js/frontend.js')
 
      /**
@@ -56,17 +81,23 @@ elixir(function(mix) {
          'plugin/sweetalert/sweetalert.scss'
      ], 'resources/assets/css/backend/app.css')
 
+     .less([
+         'plugin/bootstrap-tagsinput/bootstrap-tagsinput.less'
+     ], 'resources/assets/css/backend/main.css')
+
      /**
       * Combine pre-processed backend CSS files
       */
      .styles([
-         'backend/app.css'
+         'backend/app.css',
+         'backend/main.css'
      ], 'public/css/backend.css')
 
      /**
       * Combine backend scripts
       */
      .scripts([
+         'plugin/bootstrap-tagsinput/bootstrap-tagsinput.min.js',
          'plugin/sweetalert/sweetalert.min.js',
          'plugins.js',
          'backend/app.js',

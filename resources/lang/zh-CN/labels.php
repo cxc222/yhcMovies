@@ -56,7 +56,7 @@ return [
                 'table' => [
                     'dependencies' => 'Dependencies',
                     'group' => '分组',
-                    'group-sort' => '分组排序',
+                    'group-sort' => '排序',
                     'name' => '名称',
                     'permission' => '权限',
                     'roles' => '角色',
@@ -108,7 +108,7 @@ return [
 
                 'table' => [
                     'confirmed' => '确认',
-                    'created' => '创建',
+                    'created' => '创建时间',
                     'email' => '邮箱',
                     'id' => 'ID',
                     'last_updated' => '最后更新',
@@ -121,6 +121,24 @@ return [
                 ],
             ],
         ],
+
+        'cms' => [
+            'article' => [
+                'management' => '文章管理',
+                'list' => '列表',
+                'create' => '新建文章',
+                'edit' => '编辑文章',
+                'table' => [
+                    'id' => 'ID',
+                    'title' => '标题',
+                    'created' => '创建时间',
+                    'last_updated' => '最后更新',
+                    'status' => '状态',
+                    'view' => '浏览数',
+                    'total' => '篇文章|文章总数',
+                ]
+            ]
+        ]
     ],
 
     'frontend' => [

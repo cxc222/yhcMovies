@@ -46,6 +46,18 @@ elixir(function(mix) {
          'node_modules/bootstrap-tagsinput/dist/',
          'resources/assets/js/plugin/bootstrap-tagsinput'
      )
+     .copy(
+         'node_modules/bootstrap-datepicker/dist/js/',
+         'resources/assets/js/plugin/bootstrap-datepicker'
+     )
+     .copy(
+         'node_modules/bootstrap-datepicker/dist/css/',
+         'resources/assets/css/plugin/bootstrap-datepicker'
+     )
+     .copy(
+         'node_modules/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js',
+         'resources/assets/js/plugin/bootstrap-datepicker'
+     )
      /**
       * Process frontend SCSS stylesheets
       */
@@ -90,13 +102,16 @@ elixir(function(mix) {
       */
      .styles([
          'backend/app.css',
-         'backend/main.css'
+         'backend/main.css',
+         'plugin/bootstrap-datepicker/bootstrap-datepicker3.min.css',
      ], 'public/css/backend.css')
 
      /**
       * Combine backend scripts
       */
      .scripts([
+         'plugin/bootstrap-datepicker/bootstrap-datepicker.min.js',
+         'plugin/bootstrap-datepicker/bootstrap-datepicker.zh-CN.min.js',
          'plugin/bootstrap-tagsinput/bootstrap-tagsinput.min.js',
          'plugin/sweetalert/sweetalert.min.js',
          'plugins.js',

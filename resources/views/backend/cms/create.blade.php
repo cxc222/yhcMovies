@@ -50,7 +50,7 @@
                 <div class="form-group">
                     {!! Form::label('year', trans('validation.attributes.backend.cms.article.year'), ['class' => 'col-lg-2 control-label']) !!}
                     <div class="col-lg-10">
-                        {!! Form::date('year', \Carbon\Carbon::now()->year, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.cms.article.year')]) !!}
+                        {!! Form::date('year', \Carbon\Carbon::now()->year, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.cms.article.year'), 'data-provide'=>'datepicker', 'data-date-format'=>'yyyy']) !!}
                     </div>
                 </div><!--form control-->
 
@@ -120,6 +120,16 @@
             var editor = new Simditor({
                 textarea: $('#editor')
                 //optional options
+            });
+
+            $('input[name="year"]').datepicker({
+                format: "yyyy",
+                startView: 2,
+                minViewMode: 2,
+                language: "zh-CN",
+                calendarWeeks: true,
+                autoclose: true,
+                todayHighlight: true
             });
         });
     </script>

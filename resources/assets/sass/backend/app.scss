@@ -1,8 +1,8 @@
 @import "variable-overrides";
-@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
-@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
-@import '../../../../node_modules/font-awesome/scss/font-awesome';
+@import "../../../../vendor/bower/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../../../vendor/bower/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import "../../../../vendor/bower/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import '../../../../vendor/bower/font-awesome/scss/font-awesome';
 
 @import "variables";
 @import "core";

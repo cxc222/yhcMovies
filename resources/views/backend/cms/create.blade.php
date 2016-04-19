@@ -21,7 +21,7 @@
             box-shadow: none;
         }
     </style>
-    {!! Html::style('js/vendor/simditor/styles/simditor.css') !!}
+    {!! Html::style('/css/simditor.min.css') !!}
 @stop
 
 @section('content')
@@ -111,10 +111,7 @@
 @stop
 
 @section('after-scripts-end')
-    {!! Html::script('js/vendor/simditor/js/module.js') !!}
-    {!! Html::script('js/vendor/simditor/js/hotkeys.js') !!}
-    {!! Html::script('js/vendor/simditor/js/uploader.js') !!}
-    {!! Html::script('js/vendor/simditor/js/simditor.js') !!}
+    {!! Html::script('js/simditor.min.js') !!}
     <script type="text/javascript">
         $(function() {
             var editor = new Simditor({

@@ -1,0 +1,27 @@
+{
+  "name": "yhcMovies",
+  "description": "",
+  "main": "",
+  "authors": [
+    "cxc222 <cxc359170248@vip.qq.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/cxc222/yhcMovies",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-fileinput": "~4.3.1",
+    "bootstrap-datepicker": "~1.6.0",
+    "font-awesome": "~4.6.1",
+    "simditor": "~2.3.6",
+    "bootstrap-tagsinput": "~0.8.0",
+    "bootstrap-sass": "~3.3.6"
+  }
+}

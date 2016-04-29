@@ -4,7 +4,7 @@ development ...
 **安装**
 
  1. composer install
- 2. npm install, 然后安装 bower (npm install -g bower), 执行 bower install
+ 2. npm install
  3. 创建 .env 文件 (参考 .env.example)
  4. 执行 php artisan key:generate
  5. 执行 php artisan migrate

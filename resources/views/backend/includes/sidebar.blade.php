@@ -30,6 +30,10 @@
         <ul class="sidebar-menu">
             <li class="header">{{ trans('menus.backend.sidebar.cms') }}</li>
 
+            <li class="{{ Active::pattern('admin/cms/categorys') }}">
+                <a href="{!!url('admin/cms/categorys')!!}"><span>{{ trans('menus.backend.cms.categorys.title') }}</span></a>
+            </li>
+
             <li class="{{ Active::pattern('admin/cms/*') }}">
                 <a href="{!!url('admin/cms/articles')!!}"><span>{{ trans('menus.backend.cms.title') }}</span></a>
             </li>

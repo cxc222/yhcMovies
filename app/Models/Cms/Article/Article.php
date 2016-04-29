@@ -19,4 +19,23 @@ class Article extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title',
+        'cover',
+        'country',
+        'year',
+        'release_date',
+        'director',
+        'actors',
+        'content',
+        'view_cnt',
+        'status',
+        'created_at'
+    ];
 }

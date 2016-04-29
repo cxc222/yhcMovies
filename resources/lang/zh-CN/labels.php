@@ -137,6 +137,16 @@ return [
                     'view' => '浏览数',
                     'total' => '篇文章|文章总数',
                 ]
+            ],
+            'category' => [
+                'management' => '分类管理',
+                'list'  => '列表',
+                'create' => '新建分类',
+                'edit' => '编辑分类',
+                'table' => [
+                    'id' => 'ID',
+                    'name' => '名称'
+                ]
             ]
         ]
     ],

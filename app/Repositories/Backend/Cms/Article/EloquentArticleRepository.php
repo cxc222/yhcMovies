@@ -5,6 +5,8 @@ namespace App\Repositories\Backend\Cms\Article;
 use App\Exceptions\GeneralException;
 use App\Models\Cms\Article\Article;
 use App\Repositories\Frontend\Cms\Article\ArticleRepositoryContract as FrontendArticleRepositoryContract;
+use Storage;
+use Image;
 
 /**
  * Class EloquentArticleRepository
@@ -103,10 +105,16 @@ class EloquentArticleRepository implements ArticleRepositoryContract
      */
     private function createArticleStub($input)
     {
-        $article                    = new Article;
-        $article->title              = $input['title'];
-        $article->content             = $input['content'];
-        $article->status            = isset($input['status']) ? 1 : 0;
+        $article                        = new Article;
+        $article->title                 = $input['title'];
+        $article->cover                 = $input['cover'];
+        $article->country               = $input['country'];
+        $article->year                  = $input['year'];
+        $article->release_date          = $input['release_date'];
+        $article->director              = $input['director'];
+        $article->actors                = $input['actors'];
+        $article->content               = $input['content'];
+        $article->status                = isset($input['status']) ? 1 : 0;
         return $article;
     }
 
@@ -120,6 +128,12 @@ class EloquentArticleRepository implements ArticleRepositoryContract
     {
         $article                = $this->findOrThrowException($id);
         $article->title         = $input['title'];
+        $article->cover         = $input['cover'];
+        $article->country       = $input['country'];
+        $article->year          = $input['year'];
+        $article->release_date  = $input['release_date'];
+        $article->director      = $input['director'];
+        $article->actors        = $input['actors'];
         $article->content       = $input['content'];
         $article->status        = isset($input['status']) ? 1 : 0;
 

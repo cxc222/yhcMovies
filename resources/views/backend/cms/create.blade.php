@@ -1,4 +1,4 @@
-@extends ('backend.layouts.master')
+@extends ('backend.cms.base')
 
 @section ('title', trans('labels.backend.cms.article.management') . ' | ' . trans('labels.backend.cms.article.create'))
 
@@ -21,7 +21,6 @@
             box-shadow: none;
         }
     </style>
-    {!! Html::style('/css/simditor.min.css') !!}
 @stop
 
 @section('content')
@@ -37,6 +36,13 @@
                     {!! Form::label('title', trans('validation.attributes.backend.cms.article.title'), ['class' => 'col-lg-2 control-label']) !!}
                     <div class="col-lg-10">
                         {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.cms.article.title'), 'autofocus'=>true]) !!}
+                    </div>
+                </div><!--form control-->
+
+                <div class="form-group">
+                    {!! Form::label('cover', trans('validation.attributes.backend.cms.article.cover'), ['class' => 'col-lg-2 control-label']) !!}
+                    <div class="col-lg-10">
+                        {!! Form::file('coverImg', ['class' => 'form-control update-file', "data-preview-file-type" => "text"]) !!}
                     </div>
                 </div><!--form control-->
 
@@ -107,27 +113,7 @@
             </div><!-- /.box-body -->
         </div><!--box-->
 
+        {!! Form::hidden('cover', null, ['class' => 'form-control']) !!}
     {!! Form::close() !!}
 @stop
 
-@section('after-scripts-end')
-    {!! Html::script('js/simditor.min.js') !!}
-    <script type="text/javascript">
-        $(function() {
-            var editor = new Simditor({
-                textarea: $('#editor')
-                //optional options
-            });
-
-            $('input[name="year"]').datepicker({
-                format: "yyyy",
-                startView: 2,
-                minViewMode: 2,
-                language: "zh-CN",
-                calendarWeeks: true,
-                autoclose: true,
-                todayHighlight: true
-            });
-        });
-    </script>
-@stop

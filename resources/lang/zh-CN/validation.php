@@ -177,6 +177,7 @@ return [
             'cms' => [
                 'article' => [
                     'title' => '标题',
+                    'cover' => '封面',
                     'content' => '内容',
                     'status' => '状态',
                     'country' => '国家',

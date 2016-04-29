@@ -52,7 +52,11 @@ return [
         ],
         
         'cms' => [
-            'title' => '文章管理'
+            'title' => '文章管理',
+
+            'categorys' => [
+                'title' => '分类管理'
+            ],
         ],
 
         'log-viewer' => [

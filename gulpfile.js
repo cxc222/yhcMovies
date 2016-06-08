@@ -1,12 +1,23 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass');
-var coffee = require('gulp-coffee');
-var concat = require('gulp-concat');
+var merge = require('merge-stream');
+var minimist = require('minimist');
+var path = require('path');
 var elixir = require('laravel-elixir');
 //require('./elixir-extensions');
+var $ = require('gulp-load-plugins')(); //所有gulp插件 $ 前缀命名
+$.merge = merge;
+
+/*var rename = require("gulp-rename");
+var uglify = require('gulp-uglify');
+var rev = require('gulp-rev');
+var concat = require('gulp-concat');
+var spriter = require('gulp-css-spriter');
+var cleanCSS = require('gulp-clean-css');
+var urlAdjuster = require('gulp-css-url-adjuster');
+var clean = require('gulp-clean');*/
 
 //  gulp --production
-
+/*
 var paths = {
     modules: "node_modules/",
     public: "public/",
@@ -16,64 +27,128 @@ var paths = {
     vendorCss: "resources/assets/css/vendor/",
     vendorJs: "resources/assets/js/vendor/"
 };
+*/
 
-/**
- * 拷贝扩展文件
- */
-gulp.task('copyExtend', function () {
+global.assets = 'resources/assets/',
+    global.Js = assets+'js/',
+    global.Css = assets+'css/',
+    global.Vendor = assets+'vendor/',
+    global.Images = assets+'images/',
+    global.public = 'public/',
 
-    // bootstrap-sass
-    gulp.src(paths.modules+"bootstrap-sass/assets/javascripts/bootstrap.js")
-        .pipe(gulp.dest(paths.vendor+"bootstrap/js/"));
+    global.Build = public+'build/',
+    global.build_js = Build+'js/',
+    global.build_css = Build+'css/',
+    global.ExtendPath = 'node_modules/',
+    global.ExportExtendPath = root+'vendor/';
 
-    gulp.src(paths.modules+"bootstrap-sass/assets/fonts/**")
-        .pipe(gulp.dest(paths.public+"fonts/"))
-        .pipe(gulp.dest(paths.build+"fonts/"));
+/*var config = require('./config.js');
 
-    // Fontawesome
-    gulp.src(paths.modules+"font-awesome/fonts/*")
-        .pipe(gulp.dest(paths.public+"fonts/"))
-        .pipe(gulp.dest(paths.build+"fonts/"));
+var taskList = require('fs').readdirSync('./gulp_tasks/');
+taskList.forEach(function (file) {
+    require('./gulp_tasks/' + file)(elixir, gulp, config, $);
+});*/
 
-    // bootstrap-tagsinput
-    gulp.src(paths.modules+"bootstrap-tagsinput/dist/bootstrap-tagsinput.css")
-        .pipe(gulp.dest(paths.vendor+"bootstrap-tagsinput/css/"));
-    gulp.src(paths.modules+"bootstrap-tagsinput/dist/bootstrap-tagsinput.js")
-        .pipe(gulp.dest(paths.vendor+"bootstrap-tagsinput/js/"));
+var jsDeps = {
+    // 后台js
+    "public/js/backend.js": {
+        packages: [
+            'vendor/bootstrap/js/bootstrap.js',
+            'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js',
+            'vendor/bootstrap-fileinput/js/fileinput.js',
+            'vendor/bootstrap-tagsinput/js/bootstrap-tagsinput.js',
+            'vendor/bootstrap-datepicker/js/bootstrap-datepicker.zh-CN.js',
+            'vendor/bootstrap-fileinput/js/fileinput_locale_zh.js',
+            'js/vendor/simditor/simditor.js',
+            'js/plugin/sweetalert/sweetalert.min.js',
+            'js/backend/app.js',
+            'js/plugins.js',
+            'js/backend/plugin/toastr/toastr.min.js',
+            'js/backend/custom.js'
+        ],
+    }
+}, cssDeps = {
+    // 后台 css
 
-    // bootstrap-fileinput
-    gulp.src(paths.modules+"bootstrap-fileinput/css/fileinput.css")
-        .pipe(gulp.dest(paths.vendor+"bootstrap-fileinput/css/"));
-    gulp.src(paths.modules+"bootstrap-fileinput/js/fileinput.js")
-        .pipe(gulp.dest(paths.vendor+"bootstrap-fileinput/js/"));
-    gulp.src(paths.modules+"bootstrap-fileinput/js/fileinput_locale_zh.js")
-        .pipe(gulp.dest(paths.vendor+"bootstrap-fileinput/js/"));
-    gulp.src(paths.modules+"bootstrap-fileinput/img/**")
-        .pipe(gulp.dest(paths.vendor+"bootstrap-fileinput/img/"));
+};
 
-    //bootstrap-datepicker
-    gulp.src(paths.modules+"bootstrap-datepicker/dist/css/bootstrap-datepicker3.css")
-        .pipe(gulp.dest("resources/assets/vendor/bootstrap-datepicker/css/"));
-    gulp.src(paths.modules+"bootstrap-datepicker/dist/js/bootstrap-datepicker.js")
-        .pipe(gulp.dest("resources/assets/vendor/bootstrap-datepicker/js/"));
-    gulp.src(paths.modules+"bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js")
-        .pipe(gulp.dest("resources/assets/vendor/bootstrap-datepicker/js/"));
-
-    // simditor
-    gulp.src([
-        paths.modules+'simditor/site/assets/scripts/module.js',
-        paths.modules+'simditor/site/assets/scripts/uploader.js',
-        paths.modules+'simditor/site/assets/scripts/hotkeys.js',
-        paths.modules+'simditor/site/assets/scripts/simditor.js'
-    ])
-        .pipe(concat('simditor.js'))
-        .pipe(gulp.dest(paths.vendorJs+"simditor/"));
-    gulp.src(paths.modules+"simditor/styles/*.scss")
-        .pipe(gulp.dest(paths.vendor+"simditor/scss/"));
-});
+//var jsDeps = config.jsDeps, cssDeps = config.cssDeps, options = config.options;
 
 elixir(function (mix) {
-    mix
+    var jsPack, cssPack, streams;
+    //stream = $.merge(stream, pro);
+    /**
+     * 处理路径问题
+     */
+    for (var j in jsDeps){
+        var packages = jsDeps[j]['packages'];
+        if(packages){
+            var _p = [];
+            for (var p in packages){
+                _p.push(assets+packages[p].toString());
+            }
+            //清空原有的
+            jsDeps[j]['packages'] = _p;
+        }
+        var str = mix.phpUnit()
+            .scripts(
+                jsDeps[j]['packages'], j, Js
+            );
+
+        var str = gulp.src(packages)
+            .pipe($.plumber())
+            .pipe($.concat(name))
+            .pipe($.uglify())
+            .pipe(gulp.dest(pt));
+        streams = $.merge(streams, str);
+    }
+
+    return streams;
+
+    //console.log(jsDeps);
+    for (var j in cssDeps){
+        var packages = cssDeps[j]['packages'], _images = cssDeps[j]['images'];
+        if(packages){
+            var _p = [];
+            for (var p in packages){
+                _p.push(assets+packages[p]);
+            }
+            //清空原有的
+            cssDeps[j]['packages'] = _p;
+        }
+        /*if(_images){
+            var _i = [];
+            for (var i in _images){
+                var _imgs = _images[i], __i = [];
+                if(typeof _imgs == 'object'){
+                    var objImg = {};
+                    for (var _img in _imgs){
+                        objImg[root+_img] = _imgs[_img];
+                        //__i.push(root+_imgs[_img]);
+                    }
+                    _i.push(objImg);
+                }else{
+                    _i.push(root+_images[i])
+                }
+            }
+            cssDeps[j]['images'] = _i;
+        }*/
+    }
+
+    for (var key in jsDeps) {
+        var packages = jsDeps[key]['packages'], dest = jsDeps[key]['dest'], debug = jsDeps[key]['debug'],
+            name, pt;
+        if(!dest){
+            dest = Build;
+        }
+    }
+
+
+    /*mix.phpUnit()
+        .task('copyExtend')
+        .task('revision');*/
+
+    /*mix
         .phpUnit()
         .task('copyExtend')
         .task('compileAssets')
@@ -107,6 +182,15 @@ elixir(function (mix) {
             'public/css/backend.css',
             'resources/assets/'
         )
+        // backend_vendor - javascript
+        .styles(
+            [
+                'vendor/bootstrap-treeview/css/bootstrap-treeview.css'
+            ],
+            'public/css/backend_plugin_1.css',
+            'resources/assets/'
+        )
+
 
         // frontend.js
         .scripts(
@@ -140,23 +224,22 @@ elixir(function (mix) {
             'resources/assets/'
         )
 
+        // backend_vendor - javascript
+        .scripts(
+            [
+                'vendor/bootstrap-treeview/js/bootstrap-treeview.js',
+            ],
+            'public/js/backend_plugin_1.js',
+            'resources/assets/'
+        )
+
         .version([
             "public/css/frontend.css",
             "public/js/frontend.js",
             "public/css/backend.css",
-            "public/js/backend.js"
-        ]);
-});
-
-/**
- * 编译 scss等
- *
- */
-gulp.task('compileAssets', function () {
-    // simditor
-    gulp.src(paths.vendor+"simditor/scss/simditor.scss")
-        .pipe(sass())
-        .pipe(gulp.dest(paths.vendorCss+"simditor/"));
-    // simditor end
-
+            "public/js/backend.js",
+            //
+            "public/css/backend_plugin_1.css",
+            "public/js/backend_plugin_1.js"
+        ]);*/
 });

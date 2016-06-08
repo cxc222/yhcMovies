@@ -3,7 +3,7 @@
 namespace App\Repositories\Backend\Cms\Category;
 
 use App\Exceptions\GeneralException;
-use App\Models\Cms\Article\Article;
+use App\Models\Cms\Category\Category;
 use Storage;
 use Image;
 
@@ -20,11 +20,35 @@ class EloquentCategoryRepository implements CategoryRepositoryContract
      * @param  $status
      * @return mixed
      */
-    public function getCategoryPaginated($per_page, $status = 1, $order_by = 'id', $sort = 'asc')
+    public function getCategoryList($status = 1, $order_by = 'id', $sort = 'asc')
     {
-        return Article::where('status', $status)
+        $ParentList = Category::where('status', $status)
+            ->where('pid',0)
             ->orderBy($order_by, $sort)
-            ->paginate($per_page);
+            ->get();
+        $_list = [];
+        foreach ($ParentList as $val){
+            $nodes = $this->getChilds($val->id);
+            $data['id'] = $val['id'];
+            $data['text'] = $val['name'];
+            $data['nodes'] = $nodes;
+            $_list[] = $data;
+        }
+        return $_list;
+    }
+
+    private function getChilds($pid){
+        $list = Category::where('status', 1)
+            ->where('pid',$pid)
+            ->orderBy('id', 'asc')
+            ->get();
+        $_list = [];
+        foreach ($list as $val){
+            $data['text'] = $val['name'];
+            $data['id'] = $val['id'];
+            $_list[] = $data;
+        }
+        return $_list;
     }
 
     /**
@@ -34,14 +58,19 @@ class EloquentCategoryRepository implements CategoryRepositoryContract
      */
     public function create($input)
     {
-        $article = $this->createArticleStub($input);
 
-        if ($article->save()) {
+        $category                       = new Category;
+        $category->name                 = $input['name'];
+        $category->pid                  = $input['pid'] ? $input['pid'] : 0;
+        $category->sort                 = $input['sort'];
+        $category->status               = isset($input['status']) ? 1 : 0;
+
+        if ($category->save()) {
             //保存成功后, 其他操作
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.cms.artics.create_error'));
+        throw new GeneralException(trans('exceptions.backend.cms.category.create_error'));
     }
 
     /**
@@ -56,7 +85,7 @@ class EloquentCategoryRepository implements CategoryRepositoryContract
             return true;
         }
 
-        throw new GeneralException(trans('exceptions.backend.cms.artics.delete_error'));
+        throw new GeneralException(trans('exceptions.backend.cms.category.delete_error'));
     }
 
     /**
@@ -84,25 +113,6 @@ class EloquentCategoryRepository implements CategoryRepositoryContract
     }
 
     /**
-     * @param  $input
-     * @return mixed
-     */
-    private function createArticleStub($input)
-    {
-        $article                        = new Article;
-        $article->title                 = $input['title'];
-        $article->cover                 = $input['cover'];
-        $article->country               = $input['country'];
-        $article->year                  = $input['year'];
-        $article->release_date          = $input['release_date'];
-        $article->director              = $input['director'];
-        $article->actors                = $input['actors'];
-        $article->content               = $input['content'];
-        $article->status                = isset($input['status']) ? 1 : 0;
-        return $article;
-    }
-
-    /**
      * @param $id
      * @param $input
      * @return mixed
@@ -125,5 +135,15 @@ class EloquentCategoryRepository implements CategoryRepositoryContract
             return true;
         }
         throw new GeneralException(trans('exceptions.backend.cms.artics.update_error'));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParents()
+    {
+
+        return Category::orderBy('id', 'asc')
+            ->get();
     }
 }

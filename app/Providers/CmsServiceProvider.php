@@ -40,6 +40,11 @@ class CmsServiceProvider extends ServiceProvider
             \App\Repositories\Backend\Cms\Article\ArticleRepositoryContract::class,
             \App\Repositories\Backend\Cms\Article\EloquentArticleRepository::class
         );
+
+        $this->app->bind(
+            \App\Repositories\Backend\Cms\Category\CategoryRepositoryContract::class,
+            \App\Repositories\Backend\Cms\Category\EloquentCategoryRepository::class
+        );
     }
 
     /**

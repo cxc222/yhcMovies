@@ -103,7 +103,7 @@
         <div class="box box-info">
             <div class="box-body">
                 <div class="pull-left">
-                    <a href="{{route('admin.access.users.index')}}" class="btn btn-danger btn-xs">{{ trans('buttons.general.cancel') }}</a>
+                    <a href="{{route('admin.cms.articles.index')}}" class="btn btn-danger btn-xs">{{ trans('buttons.general.cancel') }}</a>
                 </div>
 
                 <div class="pull-right">

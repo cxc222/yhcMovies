@@ -185,6 +185,12 @@ return [
                     'release_date' => '上映时间',
                     'director' => '导演',
                     'actors' => '演员'
+                ],
+                'category' => [
+                    'name' => '名称',
+                    'parent_name' => '父级分类',
+                    'status' => '状态',
+                    'sort' => '排序'
                 ]
             ]
         ],

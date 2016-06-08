@@ -46,6 +46,11 @@ return [
             'created' => '文章发布成功',
             'deleted' => '删除文章成功',
             'edited' => '文章更新成功'
+        ],
+        'categorys' => [
+            'created' => '增加分类成功',
+            'deleted' => '删除分类成功',
+            'edited' => '更新分类成功'
         ]
     ],
 ];

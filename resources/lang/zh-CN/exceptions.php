@@ -62,6 +62,12 @@ return [
                 'delete_error' => '文章删除失败, 请重试',
                 'not_found' => '这篇文章已经被删除',
                 'update_error' => '文章更新失败'
+            ],
+            'category' => [
+                'create_error' => '分类创建失败, 请检查',
+                'delete_error' => '分类删除失败, 请重试',
+                'not_found' => '分类不存在或已删除',
+                'update_error' => '分类更新失败'
             ]
         ]
     ],

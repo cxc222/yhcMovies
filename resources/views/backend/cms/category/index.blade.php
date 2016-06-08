@@ -9,54 +9,54 @@
 </h1>
 @endsection
 
+@section('after-styles-end')
+    {!! Html::style(elixir('css/backend_plugin_1.css')) !!}
+@endsection
+
 @section('content')
 <div class="box box-success">
     <div class="box-header with-border">
         <h3 class="box-title">{{ trans('labels.backend.cms.category.list') }}</h3>
         <div class="box-tools pull-right">
-            <a href="{{ route('admin.cms.articles.create') }}" class="btn btn-primary btn-sm" role="button">{{ trans('labels.backend.cms.article.create') }}</a>
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">{{ trans('labels.backend.cms.category.create') }}</button>
         </div>
     </div><!-- /.box-header -->
 
     <div class="box-body">
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th width="5%">{{ trans('labels.backend.cms.article.table.id') }}</th>
-                    <th>{{ trans('labels.backend.cms.article.table.title') }}</th>
-                    <th width="8%">{{ trans('labels.backend.cms.article.table.view') }}</th>
-                    <th width="5%">{{ trans('labels.backend.cms.article.table.status') }}</th>
-                    <th width="8%" class="visible-lg">{{ trans('labels.backend.cms.article.table.created') }}</th>
-                    <th width="8%" class="visible-lg">{{ trans('labels.backend.cms.article.table.last_updated') }}</th>
-                    <th width="10%">{{ trans('labels.general.actions') }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($articles as $article)
-                <tr>
-                    <td>{!! $article->id !!}</td>
-                    <td>{!! $article->title !!}</td>
-                    <td>{!! $article->view_cnt !!}</td>
-                    <td>{!! $article->status_label !!}</td>
-                    <td class="visible-lg">{!! $article->created_at->diffForHumans() !!}</td>
-                    <td class="visible-lg">{!! $article->updated_at->diffForHumans() !!}</td>
-                    <td>{!! $article->action_buttons !!}</td>
-                </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-
-        <div class="pull-left">
-            {!! $articles->total() !!} {{ trans_choice('labels.backend.cms.article.table.total', $articles->total()) }}
-        </div>
-
-        <div class="pull-right">
-            {!! $articles->render() !!}
-        </div>
-
+        <div id="treeview"></div>
         <div class="clearfix"></div>
     </div><!-- /.box-body -->
 </div><!--box-->
-@stop
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新建分类</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('after-scripts-end')
+    {!! Html::script(elixir('js/backend_plugin_1.js')) !!}
+    <script type="text/javascript">
+        $(function() {
+            var defaultData = '{!! $list !!}';
+            $('#treeview').treeview({
+                data: defaultData,
+                showIcon: false
+            });
+        });
+    </script>
+@endsection

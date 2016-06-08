@@ -15,7 +15,12 @@ interface CategoryRepositoryContract
      * @param  $status
      * @return mixed
      */
-    public function getCategoryPaginated($per_page, $order_by = 'id', $sort = 'asc');
+    public function getCategoryList($order_by = 'id', $sort = 'asc');
+
+    /**
+     * @return mixed
+     */
+    public function getParents();
 
     /**
      * @param $input

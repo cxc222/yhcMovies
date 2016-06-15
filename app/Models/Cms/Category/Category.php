@@ -48,4 +48,18 @@ class Category extends Model
         'sort',
         'status'
     ];
+
+    /**
+     * Store a new blog post.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        /*$this->validate($request, [
+            'name' => 'required|unique:posts|max:255',
+            'pid' => 'required',
+        ]);*/
+    }
 }

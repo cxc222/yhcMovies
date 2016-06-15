@@ -10,6 +10,7 @@
 @endsection
 
 @section('after-styles-end')
+    @parent
     <style>
         .bootstrap-tagsinput {
             width: 100%;

@@ -62,7 +62,7 @@ class EloquentCategoryRepository implements CategoryRepositoryContract
         $category                       = new Category;
         $category->name                 = $input['name'];
         $category->pid                  = $input['pid'] ? $input['pid'] : 0;
-        $category->sort                 = $input['sort'];
+        $category->sort                 = isset($input['sort']) ? $input['sort'] : 255;
         $category->status               = isset($input['status']) ? 1 : 0;
 
         if ($category->save()) {

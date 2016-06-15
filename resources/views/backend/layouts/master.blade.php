@@ -12,8 +12,10 @@
         @yield('meta')
         <!-- Styles -->
         @yield('before-styles-end')
-        {!! Html::style(elixir('css/backend.css')) !!}
+            {!! Html::style(elixir('css/backend.css')) !!}
+
         @yield('after-styles-end')
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -48,9 +50,12 @@
 
     <!-- JavaScripts -->
     <script src="//cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
     <script>window.jQuery || document.write('<script src="{{asset('js/vendor/jquery/jquery-2.1.4.min.js')}}"><\/script>')</script>
     @yield('before-scripts-end')
-    {!! HTML::script(elixir('js/backend.js')) !!}
+        {!! HTML::script(elixir('js/backend.js')) !!}
     @yield('after-scripts-end')
+
     </body>
 </html>

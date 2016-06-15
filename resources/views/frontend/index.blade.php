@@ -70,95 +70,25 @@
 
             <div class="row grid_list">
 
-                <div class="col-md-3">
-                    <div class="thumbnail grid_item">
-                        <a href="#">
-                            <img class="img-rounded" alt="Bootstrap Thumbnail First" src="uploads/pic1.jpg" />
-                        </a>
-                        <p class="item_collect">
-                            <span class="glyphicon glyphicon-heart"></span>
-                            <strong>3,548</strong>
-                        </p>
-                        <p class="item_down">
-                            <span class="glyphicon glyphicon-download-alt"></span>
-                        </p>
-                        <p class="item_title">
-                            测试
-                        </p>
+                @foreach ($articles as $article)
+                    <div class="col-md-3">
+                        <div class="thumbnail grid_item">
+                            <a href="{!! route('cms.detail', ['id' => $article->id ]) !!}" id="{!! $article->id !!}">
+                                <img class="img-rounded" alt="{!! $article->title !!}" src="{!! $article->cover !!}" />
+                            </a>
+                            <p class="item_collect">
+                                <span class="glyphicon glyphicon-heart"></span>
+                                <strong>{!! $article->view_cnt !!}</strong>
+                            </p>
+                            <p class="item_down">
+                                <span class="glyphicon glyphicon-download-alt"></span>
+                            </p>
+                            <p class="item_title">
+                                {!! $article->title !!}
+                            </p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="thumbnail grid_item">
-                        <a href="#">
-                            <img class="img-rounded" alt="Bootstrap Thumbnail First" src="uploads/pic1.jpg" />
-                        </a>
-                        <p class="item_collect">
-                            <span class="glyphicon glyphicon-heart"></span>
-                            <strong>3,548</strong>
-                        </p>
-                        <p class="item_down">
-                            <span class="glyphicon glyphicon-download-alt"></span>
-                        </p>
-                        <p class="item_title">
-                            测试
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="thumbnail grid_item">
-                        <a href="#">
-                            <img class="img-rounded" alt="Bootstrap Thumbnail First" src="uploads/pic1.jpg" />
-                        </a>
-                        <p class="item_collect">
-                            <span class="glyphicon glyphicon-heart"></span>
-                            <strong>3,548</strong>
-                        </p>
-                        <p class="item_down">
-                            <span class="glyphicon glyphicon-download-alt"></span>
-                        </p>
-                        <p class="item_title">
-                            测试
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="thumbnail grid_item">
-                        <a href="#">
-                            <img class="img-rounded" alt="Bootstrap Thumbnail First" src="uploads/pic1.jpg" />
-                        </a>
-                        <p class="item_collect">
-                            <span class="glyphicon glyphicon-heart"></span>
-                            <strong>3,548</strong>
-                        </p>
-                        <p class="item_down">
-                            <span class="glyphicon glyphicon-download-alt"></span>
-                        </p>
-                        <p class="item_title">
-                            测试
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="thumbnail grid_item">
-                        <a href="#">
-                            <img class="img-rounded" alt="Bootstrap Thumbnail First" src="uploads/pic1.jpg" />
-                        </a>
-                        <p class="item_collect">
-                            <span class="glyphicon glyphicon-heart"></span>
-                            <strong>3,548</strong>
-                        </p>
-                        <p class="item_down">
-                            <span class="glyphicon glyphicon-download-alt"></span>
-                        </p>
-                        <p class="item_title">
-                            测试
-                        </p>
-                    </div>
-                </div>
-
+                @endforeach
 
             </div>
         </div>

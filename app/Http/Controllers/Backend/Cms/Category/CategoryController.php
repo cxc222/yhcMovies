@@ -43,7 +43,6 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         $this->categorys->create($request->all());
-        return redirect()->route('admin.cms.categorys.index')
-            ->withFlashSuccess(trans('alerts.backend.categorys.created'));
+        return $this->ResponseSuccess(trans('alerts.backend.categorys.created'));
     }
 }

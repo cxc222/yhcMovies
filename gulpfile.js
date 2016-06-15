@@ -1,245 +1,188 @@
-var gulp = require('gulp');
-var merge = require('merge-stream');
-var minimist = require('minimist');
-var path = require('path');
 var elixir = require('laravel-elixir');
 //require('./elixir-extensions');
-var $ = require('gulp-load-plugins')(); //所有gulp插件 $ 前缀命名
-$.merge = merge;
 
-/*var rename = require("gulp-rename");
-var uglify = require('gulp-uglify');
-var rev = require('gulp-rev');
-var concat = require('gulp-concat');
-var spriter = require('gulp-css-spriter');
-var cleanCSS = require('gulp-clean-css');
-var urlAdjuster = require('gulp-css-url-adjuster');
-var clean = require('gulp-clean');*/
+elixir(function(mix) {
+ mix
+     .phpUnit()
+     //.compressHtml()
 
-//  gulp --production
-/*
-var paths = {
-    modules: "node_modules/",
-    public: "public/",
-    build:  "public/build/",
-    assets: "resources/assets/",
-    vendor: "resources/assets/vendor/",
-    vendorCss: "resources/assets/css/vendor/",
-    vendorJs: "resources/assets/js/vendor/"
-};
-*/
-
-global.assets = 'resources/assets/',
-    global.Js = assets+'js/',
-    global.Css = assets+'css/',
-    global.Vendor = assets+'vendor/',
-    global.Images = assets+'images/',
-    global.public = 'public/',
-
-    global.Build = public+'build/',
-    global.build_js = Build+'js/',
-    global.build_css = Build+'css/',
-    global.ExtendPath = 'node_modules/',
-    global.ExportExtendPath = root+'vendor/';
-
-/*var config = require('./config.js');
-
-var taskList = require('fs').readdirSync('./gulp_tasks/');
-taskList.forEach(function (file) {
-    require('./gulp_tasks/' + file)(elixir, gulp, config, $);
-});*/
-
-var jsDeps = {
-    // 后台js
-    "public/js/backend.js": {
-        packages: [
-            'vendor/bootstrap/js/bootstrap.js',
-            'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js',
-            'vendor/bootstrap-fileinput/js/fileinput.js',
-            'vendor/bootstrap-tagsinput/js/bootstrap-tagsinput.js',
-            'vendor/bootstrap-datepicker/js/bootstrap-datepicker.zh-CN.js',
-            'vendor/bootstrap-fileinput/js/fileinput_locale_zh.js',
-            'js/vendor/simditor/simditor.js',
-            'js/plugin/sweetalert/sweetalert.min.js',
-            'js/backend/app.js',
-            'js/plugins.js',
-            'js/backend/plugin/toastr/toastr.min.js',
-            'js/backend/custom.js'
-        ],
-    }
-}, cssDeps = {
-    // 后台 css
-
-};
-
-//var jsDeps = config.jsDeps, cssDeps = config.cssDeps, options = config.options;
-
-elixir(function (mix) {
-    var jsPack, cssPack, streams;
-    //stream = $.merge(stream, pro);
     /**
-     * 处理路径问题
+     * Copy needed files from /node directories
+     * to /public directory.
      */
-    for (var j in jsDeps){
-        var packages = jsDeps[j]['packages'];
-        if(packages){
-            var _p = [];
-            for (var p in packages){
-                _p.push(assets+packages[p].toString());
-            }
-            //清空原有的
-            jsDeps[j]['packages'] = _p;
-        }
-        var str = mix.phpUnit()
-            .scripts(
-                jsDeps[j]['packages'], j, Js
-            );
+     .copy(
+       'node_modules/font-awesome/fonts',
+       'public/build/fonts/font-awesome'
+     )
+     .copy(
+       'node_modules/bootstrap-sass/assets/fonts/bootstrap',
+       'public/build/fonts/bootstrap'
+     )
+     .copy(
+       'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
+       'public/js/vendor/bootstrap'
+     )
 
-        var str = gulp.src(packages)
-            .pipe($.plumber())
-            .pipe($.concat(name))
-            .pipe($.uglify())
-            .pipe(gulp.dest(pt));
-        streams = $.merge(streams, str);
-    }
+     /**
+      * copy 到内部 vendor文件夹
+      */
+     .copy(
+         [
+             'node_modules/simditor/lib/simditor.js',
+             'node_modules/simple-hotkeys/lib/hotkeys.js',
+             'node_modules/simple-module/lib/module.js',
+             'node_modules/simple-uploader/lib/uploader.js',
+         ],
+         'resources/assets/js/vendor/simditor/'
+         //'public/js/vendor/simditor'
+     )
+     .copy(
+         'node_modules/simditor/styles/simditor.css',
+         'resources/assets/css/vendor/simditor'
+         //'public/css/vendor/simditor'
+     )
 
-    return streams;
+     .copy(
+         [
+             'node_modules/bootstrap-fileinput/js/fileinput.js',
+             'node_modules/bootstrap-fileinput/js/fileinput_locale_zh.js'
+         ],
+         'resources/assets/js/vendor/bootstrap-fileinput/'
+     )
+     .copy(
+         'node_modules/bootstrap-fileinput/css/fileinput.css',
+         'resources/assets/css/vendor/bootstrap-fileinput/'
+     )
+     .copy(
+         'node_modules/bootstrap-fileinput/img/**',
+         'public/vendor/bootstrap/img/'
+     )
 
-    //console.log(jsDeps);
-    for (var j in cssDeps){
-        var packages = cssDeps[j]['packages'], _images = cssDeps[j]['images'];
-        if(packages){
-            var _p = [];
-            for (var p in packages){
-                _p.push(assets+packages[p]);
-            }
-            //清空原有的
-            cssDeps[j]['packages'] = _p;
-        }
-        /*if(_images){
-            var _i = [];
-            for (var i in _images){
-                var _imgs = _images[i], __i = [];
-                if(typeof _imgs == 'object'){
-                    var objImg = {};
-                    for (var _img in _imgs){
-                        objImg[root+_img] = _imgs[_img];
-                        //__i.push(root+_imgs[_img]);
-                    }
-                    _i.push(objImg);
-                }else{
-                    _i.push(root+_images[i])
-                }
-            }
-            cssDeps[j]['images'] = _i;
-        }*/
-    }
+     .copy([
+         'node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
+         'node_modules/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js',
+        ], 'resources/assets/js/vendor/bootstrap-datepicker/'
+     )
 
-    for (var key in jsDeps) {
-        var packages = jsDeps[key]['packages'], dest = jsDeps[key]['dest'], debug = jsDeps[key]['debug'],
-            name, pt;
-        if(!dest){
-            dest = Build;
-        }
-    }
+     .copy(
+         'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css',
+         'resources/assets/css/vendor/bootstrap-fileinput/'
+     )
 
+     .copy(
+         'node_modules/bootstrap-treeview/src/css/bootstrap-treeview.css',
+         'resources/assets/css/vendor/bootstrap-treeview/'
+     )
 
-    /*mix.phpUnit()
-        .task('copyExtend')
-        .task('revision');*/
+     .copy(
+         'node_modules/bootstrap-treeview/src/js/bootstrap-treeview.js',
+         'resources/assets/js/vendor/bootstrap-treeview/'
+     )
 
-    /*mix
-        .phpUnit()
-        .task('copyExtend')
-        .task('compileAssets')
+     /**
+      * Process frontend SCSS stylesheets
+      */
+     .sass([
+        'frontend/app.scss',
+        'plugin/sweetalert/sweetalert.scss'
+     ], 'resources/assets/css/frontend/app.css')
 
-        .copy(
-            'resources/assets/vendor/bootstrap-fileinput/img',
-            'public/build/img'
-        )
+     /**
+      * Combine pre-processed frontend CSS files
+      */
+     .styles([
+        'frontend/style.css'
+     ], 'public/css/frontend.css')
 
-        // frontend - css
-        .styles(
-            [
-                'css/frontend/app.css',
-                'css/frontend/style.css'
-            ],
-            'public/css/frontend.css',
-            'resources/assets/'
-        )
+     /**
+      * Combine frontend scripts
+      */
+     .scripts([
+        'plugin/sweetalert/sweetalert.min.js',
+        'plugins.js',
+        'frontend/app.js'
+     ], 'public/js/frontend.js')
 
-        // backend - css
-        .styles(
-            [
-                //'vendor/bootstrap.min.css',
-                'css/backend/app.css',
-                'vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css',
-                'vendor/bootstrap-tagsinput/css/bootstrap-tagsinput.css',
-                'vendor/bootstrap-fileinput/css/fileinput.css',
-                'css/vendor/simditor/simditor.css',
-                //'backend/main.css'
-            ],
-            'public/css/backend.css',
-            'resources/assets/'
-        )
-        // backend_vendor - javascript
-        .styles(
-            [
-                'vendor/bootstrap-treeview/css/bootstrap-treeview.css'
-            ],
-            'public/css/backend_plugin_1.css',
-            'resources/assets/'
-        )
+     /**
+      * Process backend SCSS stylesheets
+      */
+     .sass([
+         'backend/app.scss',
+         'backend/plugin/toastr/toastr.scss',
+         'plugin/sweetalert/sweetalert.scss'
+     ], 'resources/assets/css/backend/app.css')
 
+     /**
+      * Combine pre-processed backend CSS files
+      */
+     .styles([
+         'backend/app.css'
+     ], 'public/css/backend.css')
 
-        // frontend.js
-        .scripts(
-            [
-                'plugin/sweetalert/sweetalert.min.js',
-                'plugins.js',
-                'frontend/app.js',
-                'frontend/responsiveslides.min.js',
-            ],
-            'public/js/frontend.js',
-            'resources/assets/js/'
-        )
+     .styles([
+         'vendor/simditor/simditor.css'
+     ], 'public/vendor/simditor/css/simditor.css')
 
-        // backend - javascript
-        .scripts(
-            [
-                'vendor/bootstrap/js/bootstrap.js',
-                'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js',
-                'vendor/bootstrap-fileinput/js/fileinput.js',
-                'vendor/bootstrap-tagsinput/js/bootstrap-tagsinput.js',
-                'vendor/bootstrap-datepicker/js/bootstrap-datepicker.zh-CN.js',
-                'vendor/bootstrap-fileinput/js/fileinput_locale_zh.js',
-                'js/vendor/simditor/simditor.js',
-                'js/plugin/sweetalert/sweetalert.min.js',
-                'js/backend/app.js',
-                'js/plugins.js',
-                'js/backend/plugin/toastr/toastr.min.js',
-                'js/backend/custom.js'
-            ],
-            'public/js/backend.js',
-            'resources/assets/'
-        )
+     .styles([
+         'vendor/bootstrap-fileinput/bootstrap-datepicker3.css'
+     ], 'public/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css')
 
-        // backend_vendor - javascript
-        .scripts(
-            [
-                'vendor/bootstrap-treeview/js/bootstrap-treeview.js',
-            ],
-            'public/js/backend_plugin_1.js',
-            'resources/assets/'
-        )
+     .styles([
+         'vendor/bootstrap-fileinput/fileinput.css'
+     ], 'public/vendor/bootstrap-fileinput/css/fileinput.css')
 
-        .version([
-            "public/css/frontend.css",
-            "public/js/frontend.js",
-            "public/css/backend.css",
-            "public/js/backend.js",
-            //
-            "public/css/backend_plugin_1.css",
-            "public/js/backend_plugin_1.js"
-        ]);*/
+     .styles([
+         'vendor/bootstrap-treeview/bootstrap-treeview.css'
+     ], 'public/vendor/bootstrap-treeview/css/bootstrap-treeview.css')
+
+     .scripts([
+         'vendor/simditor/module.js',
+         'vendor/simditor/uploader.js',
+         'vendor/simditor/hotkeys.js',
+         'vendor/simditor/simditor.js',
+     ], 'public/vendor/simditor/js/simditor.js')
+
+     .scripts([
+         'vendor/bootstrap-fileinput/fileinput.js',
+         'vendor/bootstrap-fileinput/fileinput_locale_zh.js',
+     ], 'public/vendor/bootstrap-fileinput/js/fileinput.js')
+
+     .scripts([
+         'vendor/bootstrap-datepicker/bootstrap-datepicker.js',
+         'vendor/bootstrap-datepicker/bootstrap-datepicker.zh-CN.min.js',
+     ], 'public/vendor/bootstrap-fileinput/js/bootstrap-datepicker.js')
+
+     .scripts(
+         'vendor/bootstrap-treeview/bootstrap-treeview.js',
+         'public/vendor/bootstrap-treeview/js/bootstrap-treeview.js')
+
+     /**
+      * Combine backend scripts
+      */
+     .scripts([
+         'plugin/sweetalert/sweetalert.min.js',
+         'plugins.js',
+         'backend/app.js',
+         'backend/plugin/toastr/toastr.min.js',
+         'backend/custom.js'
+     ], 'public/js/backend.js')
+
+    /**
+      * Apply version control
+      */
+     .version([
+         "public/css/frontend.css",
+         "public/js/frontend.js",
+         "public/css/backend.css",
+         "public/js/backend.js",
+
+         "public/vendor/simditor/js/simditor.js",
+         "public/vendor/simditor/css/simditor.css",
+         "public/vendor/bootstrap-fileinput/js/fileinput.js",
+         "public/vendor/bootstrap-fileinput/css/fileinput.css",
+         "public/vendor/bootstrap-fileinput/js/bootstrap-datepicker.js",
+         "public/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css",
+         "public/vendor/bootstrap-treeview/css/bootstrap-treeview.css",
+         "public/vendor/bootstrap-treeview/js/bootstrap-treeview.js",
+     ]);
 });

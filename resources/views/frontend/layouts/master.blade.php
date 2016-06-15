@@ -12,12 +12,11 @@
         <meta name="description" content="@yield('meta_description', 'Default Description')">
         <meta name="author" content="@yield('meta_author', 'Anthony Rappa')">
         @yield('meta')
-
         <!-- Styles -->
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         @yield('before-styles-end')
         {!! Html::style(elixir('css/frontend.css')) !!}
         @yield('after-styles-end')
-
         <!-- Fonts -->
         <link href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext" rel='stylesheet' type='text/css'>
     </head>

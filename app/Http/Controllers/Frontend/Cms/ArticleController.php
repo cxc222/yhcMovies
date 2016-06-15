@@ -7,11 +7,6 @@ use App\Repositories\Backend\Cms\Article\ArticleRepositoryContract;
 
 class ArticleController extends Controller
 {
-    function index(){
-        print_r(213);
-        die;
-    }
-
     public function detail(ArticleRepositoryContract $articles, $id){
         return view('frontend.cms.detail')->withArticle($articles->find($id));
     }

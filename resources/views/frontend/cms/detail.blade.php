@@ -30,7 +30,11 @@
                                         <strong>年份: </strong>{{ $article->year }}
                                     </p>
                                     <p class="movie_option"><strong>类型: </strong><a href="#">Adventure</a>, <a href="#">Fantazy</a></p>
-                                    <p class="movie_option"><strong>上映日期: </strong>{{ date('Y-m-d', $article->release_date) }}</p>
+                                    <p class="movie_option"><strong>上映日期: </strong>
+                                        @if(!empty($article->release_date))
+                                            {{ $article->release_date }}
+                                        @endif
+                                    </p>
                                     <p class="movie_option"><strong>导演: </strong>{{ $article->director }}</p>
                                     <p class="movie_option"><strong>主演: </strong>{{ $article->actors }}</p>
                                     <div class="down_btn">

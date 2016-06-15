@@ -20,7 +20,7 @@ class Controller extends BaseController
      * @param $msg
      * @param $datas
      */
-    public function ResponseSuccess($msg, $datas){
+    public function ResponseSuccess($msg, $datas=[]){
         return $this->ResponseJson(true, $msg, $datas);
     }
 

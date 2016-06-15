@@ -1,12 +1,22 @@
 @extends ('backend.layouts.master')
 
+@section('after-styles-end')
+    {!! Html::style(elixir('vendor/simditor/css/simditor.css')) !!}
+    {!! Html::style(elixir('vendor/bootstrap-fileinput/css/fileinput.css')) !!}
+    {!! Html::style(elixir('vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css')) !!}
+@stop
+
 @section('after-scripts-end')
+    {!! HTML::script(elixir('vendor/simditor/js/simditor.js')) !!}
+    {!! HTML::script(elixir('vendor/bootstrap-fileinput/js/fileinput.js')) !!}
+    {!! HTML::script(elixir('vendor/bootstrap-fileinput/js/bootstrap-datepicker.js')) !!}
     <script type="text/javascript">
         $(function() {
             var editor = new Simditor({
                 textarea: $('#editor')
                 //optional options
             }), $input = $(".update-file"), defaultPreview = "{{ $article->cover or '/uploads/default_avatar_male.jpg' }}";
+
             $input.fileinput({
                 language: 'zh',
                 uploadUrl: "{!!url('admin/cms/uploadCover')!!}",

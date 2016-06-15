@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Backend\Cms\Article\ArticleRepositoryContract;
 
 /**
  * Class FrontendController
@@ -10,16 +11,22 @@ use App\Http\Controllers\Controller;
  */
 class FrontendController extends Controller
 {
+    protected $articles;
+    public function __construct(ArticleRepositoryContract $articles)
+    {
+        $this->articles = $articles;
+    }
+
     /**
      * @return \Illuminate\View\View
      */
     public function index()
     {
-
-        javascript()->put([
-            'test' => 'it works!',
-        ]);
+        $articles = $this
+            ->articles
+            ->getArticlePaginated(25, 1);
         return view('frontend.index')
+            ->withArticles($articles)
             ->withName('Victoria');
     }
 

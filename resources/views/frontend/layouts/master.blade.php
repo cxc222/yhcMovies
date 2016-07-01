@@ -5,9 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="_token" content="{{ csrf_token() }}" />
-
         <title>@yield('title', app_name())</title>
-
         <!-- Meta -->
         <meta name="description" content="@yield('meta_description', 'Default Description')">
         <meta name="author" content="@yield('meta_author', 'Anthony Rappa')">
@@ -20,12 +18,12 @@
         <!-- Fonts -->
         <link href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext" rel='stylesheet' type='text/css'>
     </head>
-    <body id="app-layout">
-        <div class="container">
-            <div class="container_wrap">
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
                 @include('frontend.includes.header')
             </div>
-        </div>
+        </nav>
 
         {{--@include('includes.partials.messages')--}}
         @yield('content')

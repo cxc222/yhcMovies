@@ -25,6 +25,9 @@ class FrontendController extends Controller
         $articles = $this
             ->articles
             ->getArticlePaginated(25, 1);
+        foreach ($articles as &$article){
+            $article->type = explode("/", $article->type);
+        }
         return view('frontend.index')
             ->withArticles($articles)
             ->withName('Victoria');

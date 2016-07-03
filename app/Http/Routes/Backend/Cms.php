@@ -24,4 +24,21 @@ Route::group([
     Route::group(['namespace' => 'Category'], function () {
         Route::resource('categorys', 'CategoryController', ['except' => ['show']]);
     });
+
+});
+
+Route::group([
+    'prefix'     => 'coll',
+    'namespace'  => 'Cms',
+    'middleware' => 'access.routeNeedsPermission:view-access-management',
+], function() {
+
+    /**
+     * 采集的数据
+     */
+    Route::group(['namespace' => 'Collection'], function () {
+        Route::resource('collections', 'ArticleController');
+
+        Route::any('check', 'ArticleController@check');
+    });
 });

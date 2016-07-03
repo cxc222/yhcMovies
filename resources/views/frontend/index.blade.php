@@ -16,17 +16,13 @@
                             <a href="{!! route('cms.detail', ['id' => $article->id ]) !!}">
                                 {!! $article->title !!}
                             </a>
-                            <span class="text-danger">7.5</span>
 
-                            <span style="padding:1px 3px;" class="label label-primary">剧情</span>
-                            <span style="padding:1px 3px;" class="label label-primary">犯罪</span>
-
+                            @foreach ($article->type as $type)
+                                <span style="padding:1px 3px;" class="label label-primary">{{ $type }}</span>&nbsp;
+                            @endforeach
                             <br>
-                            <small>又名：寒流黑金(港) / 内部者们 / 局内人们 / Inside Men</small>
-                            <br>
-
                             <small class="text-muted">导演：{!! $article->director !!}</small>
-                            <small class="text-muted">演员：{!! $article->actors !!}}</small>
+                            <small class="text-muted">演员：{!! $article->actors !!}</small>
                         </li>
                         @endforeach
                     </ul>
@@ -34,7 +30,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="white-div">
+                {{--<div class="white-div">
                     <h4 style="padding:6px 20px 0px 20px;">Tags</h4>
                     <ul class="list-inline tags">
                         <li><a href="/tag/喜剧">喜剧</a></li>
@@ -88,7 +84,7 @@
                         <li><a href="/movie/6928">荒唐六蛟龙</a> <span class="text-danger">5.9分</span></li>
                         <li><a href="/movie/6942">求职记</a> <span class="text-danger">5.4分</span></li>
                     </ol>
-                </div>
+                </div>--}}
             </div>
         </div><!--row-->
     </div><!-- container -->

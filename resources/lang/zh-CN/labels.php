@@ -149,6 +149,17 @@ return [
                     'total' => '个分类|分类总数',
                     'status' => '状态',
                 ]
+            ],
+            'collection' => [
+                'management' => '采集管理',
+                'list'  => '列表',
+                'table' => [
+                    'id' => 'ID',
+                    'title' => '名称',
+                    'status' => '状态',
+                ],
+                'no' => '尚未采集',
+                'yes' => '已经入库'
             ]
         ]
     ],

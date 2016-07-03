@@ -38,6 +38,10 @@
                 <a href="{!!url('admin/cms/articles')!!}"><span>{{ trans('menus.backend.cms.title') }}</span></a>
             </li>
 
+            <li class="{{ Active::pattern('admin/coll/*') }}">
+                <a href="{!!url('admin/coll/collections')!!}"><span>{{ trans('menus.backend.cms.collections.title') }}</span></a>
+            </li>
+
             <li class="header">{{ trans('menus.backend.sidebar.general') }}</li>
 
             <!-- Optionally, you can add icons to the links -->

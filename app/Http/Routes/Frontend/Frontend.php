@@ -6,6 +6,12 @@
 Route::get('/', 'FrontendController@index')->name('frontend.index');
 Route::get('macros', 'FrontendController@macros')->name('frontend.macros');
 
+Route::group(['namespace' => 'Cms'], function() {
+    Route::get('detail/{id}', 'ArticleController@detail')
+        ->where('id', '[0-9]+')
+        ->name('cms.detail');
+});
+
 /**
  * These frontend controllers require the user to be logged in
  */

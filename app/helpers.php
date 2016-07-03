@@ -81,3 +81,28 @@ if (! function_exists('getLanguageBlock')) {
         }
     }
 }
+
+/**
+ * 替换 br 为 \n
+ */
+if (! function_exists('replaceWrap')){
+    function replaceWrap($html){
+        $html = preg_replace("=<br */?>=i", "\n", $html);
+        return strip_tags($html);
+    }
+}
+
+/**
+ * 替换出来的\n 转成 array
+ */
+if(! function_exists('wrapTurnArray')){
+    function wrapTurnArray($html){
+        $list = array();
+        $array = explode("\n", $html);
+        foreach ($array as $item) {
+            $ls = explode(":", $item);
+            $list[trim($ls[0])] = isset($ls[1]) ? trim($ls[1]) : '';
+        }
+        return $list;
+    }
+}

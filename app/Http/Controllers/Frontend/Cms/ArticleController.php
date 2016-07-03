@@ -8,6 +8,11 @@ use App\Repositories\Backend\Cms\Article\ArticleRepositoryContract;
 class ArticleController extends Controller
 {
     public function detail(ArticleRepositoryContract $articles, $id){
-        return view('frontend.cms.detail')->withArticle($articles->find($id));
+        $article = $articles->find($id);
+        if($article){
+            $actors = explode(",", $article->actors);
+            $article->actors = join(" / ", $actors);
+        }
+        return view('frontend.cms.detail')->withArticle($article);
     }
 }

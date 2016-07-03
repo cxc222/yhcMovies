@@ -34,6 +34,7 @@ return [
             'delete' => '删除',
             'edit' => '修改',
             'update' => '更新',
+            'check' => '查核'
         ],
 
         'save' => '保存',

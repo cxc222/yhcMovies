@@ -57,6 +57,10 @@ return [
             'categorys' => [
                 'title' => '分类管理'
             ],
+
+            'collections' => [
+                'title' => '采集管理'
+            ]
         ],
 
         'log-viewer' => [

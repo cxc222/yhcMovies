@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Frontend Controllers
  */
@@ -11,6 +10,13 @@ Route::group(['namespace' => 'Cms'], function() {
         ->where('id', '[0-9]+')
         ->name('cms.detail');
 });
+
+Route::get('test', function (){
+
+    $job = (new App\Jobs\Test());
+    dispatch($job);
+    return 'Done!';
+})->name('frontend.macros');
 
 /**
  * These frontend controllers require the user to be logged in

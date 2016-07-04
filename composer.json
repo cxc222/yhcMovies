@@ -16,7 +16,9 @@
         "arcanedev/log-viewer": "~3.0",
         "spatie/laravel-backup": "^3.0",
         "intervention/image": "^2.3",
-        "paquettg/php-html-parser": "^1.7"
+        "paquettg/php-html-parser": "^1.7",
+        "pda/pheanstalk": "^3.1",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

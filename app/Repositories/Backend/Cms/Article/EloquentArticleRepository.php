@@ -36,7 +36,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
      * @param  $status
      * @return mixed
      */
-    public function getArticlePaginated($per_page, $status = 1, $order_by = 'id', $sort = 'asc')
+    public function getArticlePaginated($per_page, $status = 1, $order_by = 'sort', $sort = 'desc')
     {
         return Article::where('status', $status)
             ->orderBy($order_by, $sort)

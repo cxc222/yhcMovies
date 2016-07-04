@@ -4,6 +4,7 @@ namespace App\Repositories\Backend\Cms\Collection;
 use App\Exceptions\GeneralException;
 use App\Models\Cms\Collection\Article as CollectionArticle;
 use App\Models\Cms\Article\Article;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use PHPHtmlParser\Dom;
 
 class EloquentArticleRepository implements ArticleRepositoryContract
@@ -73,15 +74,20 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                     break;
             }
         }
-
+        $datas['sort'] = $collectionArticle->coll_id;
         //content
         $datas['content'] = $collectionArticle->content;
         $datas['down_url'] = $collectionArticle->down_url;
         $datas['down_url_cyclone'] = $collectionArticle->down_url_cyclone;
         $datas['down_url_xunlei'] = $collectionArticle->down_url_xunlei;
 
-        $res = Article::firstOrCreate($datas);
-
+        try{
+            $article = CollectionArticle::where('coll_id', $collectionArticle->coll_id)->firstOrFail();
+            Article::where('id', $article['id'])->update($datas);
+            $res = $article['id'];
+        }catch (ModelNotFoundException $e){
+            $res = Article::firstOrCreate($datas);
+        }
         return $res;
     }
 }

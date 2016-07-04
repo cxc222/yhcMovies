@@ -82,7 +82,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
         $datas['down_url_xunlei'] = $collectionArticle->down_url_xunlei;
 
         try{
-            $article = CollectionArticle::where('coll_id', $collectionArticle->coll_id)->firstOrFail();
+            $article = Article::where('sort', $collectionArticle->coll_id)->firstOrFail();
             Article::where('id', $article['id'])->update($datas);
             $res = $article['id'];
         }catch (ModelNotFoundException $e){

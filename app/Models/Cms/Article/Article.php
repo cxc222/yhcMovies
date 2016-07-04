@@ -41,6 +41,7 @@ class Article extends Model
         'down_url_xunlei',
         'view_cnt',
         'status',
+        'sort',
         'created_at'
     ];
 }

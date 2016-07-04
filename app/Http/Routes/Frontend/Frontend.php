@@ -6,9 +6,18 @@ Route::get('/', 'FrontendController@index')->name('frontend.index');
 Route::get('macros', 'FrontendController@macros')->name('frontend.macros');
 
 Route::group(['namespace' => 'Cms'], function() {
+    /**
+     * 获取 详情
+     */
     Route::get('detail/{id}', 'ArticleController@detail')
         ->where('id', '[0-9]+')
         ->name('cms.detail');
+    /**
+     * 最新列表
+     */
+    Route::get('news/{page?}', 'ArticleController@newsList')
+        ->where('page', '[0-9]+')
+        ->name('cms.news');
 });
 
 Route::get('test', function (){

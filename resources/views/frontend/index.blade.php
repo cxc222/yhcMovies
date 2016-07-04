@@ -13,13 +13,14 @@
                     <ul class="list-unstyled mlist">
                         @foreach ($articles as $article)
                         <li>
-                            <a href="{!! route('cms.detail', ['id' => $article->id ]) !!}">
+                            <a href="{!! route('cms.detail', ['id' => $article->id ]) !!}" target="_blank">
                                 {!! $article->title !!}
                             </a>
 
                             @foreach ($article->type as $type)
                                 <span style="padding:1px 3px;" class="label label-primary">{{ $type }}</span>&nbsp;
                             @endforeach
+
                             <br>
                             <small class="text-muted">导演：{!! $article->director !!}</small>
                             <small class="text-muted">演员：{!! $article->actors !!}</small>

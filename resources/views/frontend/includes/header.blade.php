@@ -13,7 +13,7 @@
             <a href="/">首页</a>
         </li>
         <li>
-            <a href="/news">最新</a>
+            <a href="{!! route('cms.news') !!}">最新</a>
         </li>
         {{--<li><a href="#contact">Contact</a></li>
         <li class="dropdown">

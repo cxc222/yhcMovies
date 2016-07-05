@@ -44,10 +44,10 @@ return [
 
         'beanstalkd' => [
             'driver' => 'beanstalkd',
-            'host'   => '10.211.55.5',
-            'queue'  => 'default',
-            'port' => 11300,
-            'ttr'    => 60,
+            'host'   => env('QUEUE_BEANSTALKD_HOST', '10.211.55.5'),
+            'queue'  => env('QUEUE_BEANSTALKD_QUEUE', 'default'),
+            'port'   => env('QUEUE_BEANSTALKD_PORT', 11300),
+            'ttr'    => env('QUEUE_BEANSTALKD_TTR', 60),
         ],
 
         'sqs' => [

@@ -1,9 +1,5 @@
 @extends('frontend.layouts.master')
 
-@section ('title')
-月河城-电影驿站
-@stop
-
 @section('content')
     <div class="container">
         <div class="row">

@@ -44,4 +44,16 @@ class SendCheckArticles extends Job implements ShouldQueue
             }
         }
     }
+
+    /**
+     * 参与测试 test
+     *
+     */
+    public function test(){
+        $res = $this->articleRepositoryContract->checkArticle(3);
+        if(!$res){
+            //失败 记录日志中
+            Log::info('test collection error: check article error.');
+        }
+    }
 }

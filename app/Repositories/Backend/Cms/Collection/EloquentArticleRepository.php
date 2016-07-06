@@ -40,10 +40,19 @@ class EloquentArticleRepository implements ArticleRepositoryContract
 
         $dom = new Dom;
         $dom->load($collectionArticle->attribute);
-        $attributeHtml = $dom->find('.span7')->innerHTML;
-        $attributeHtml = replaceWrap($attributeHtml);
-        $attrs = wrapTurnArray($attributeHtml);
 
+        $attributeDivHtml = $dom->find('.span7 div');
+        if($attributeDivHtml){
+            $attrs = [];
+            foreach ($attributeDivHtml as $attributeDiv){
+                $attrs[] = $attributeDiv->text;
+            }
+            $attributeHtml = join("\n", $attrs);
+        }else{
+            $attributeHtml = $dom->find('.span7')->innerHTML;
+            $attributeHtml = replaceWrap($attributeHtml);
+        }
+        $attrs = wrapTurnArray($attributeHtml);
         $datas = [];
         $datas['cover'] = $collectionArticle->cover;
         $datas['title'] = $collectionArticle->title;

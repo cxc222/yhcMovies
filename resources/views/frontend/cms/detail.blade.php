@@ -35,7 +35,7 @@
                                 <p class="bg-warning">如点击"本地高速下载"没有反应, 请右键复制下载地址, 用迅雷下载!</p>
                                 <br/>
                                 <a class="label label-warning" id="normal_link" title="{!! $article->title !!}"
-                                   href="{!! $article->title !!}">本地高速下载</a>
+                                   href="{!! $article->down_url !!}">本地高速下载</a>
                                 <a class="label label-primary" id="xf_link" title="{!! $article->title !!}" onclick="XFLIB.startDownload(this,event)"
                                    qhref="{!! $article->down_url_cyclone !!}" href="javascript:void(0);">旋风专用下载</a>
                                 <a class="label label-info" id="xl_link"

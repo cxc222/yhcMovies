@@ -9,10 +9,10 @@
 </div>
 <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
-        <li class="active">
+        <li class="{{ active_class(if_route(['frontend.index'])) }}">
             <a href="/">首页</a>
         </li>
-        <li>
+        <li class="{{ active_class(if_route(['cms.news'])) }}">
             <a href="{!! route('cms.news') !!}">最新</a>
         </li>
         {{--<li><a href="#contact">Contact</a></li>

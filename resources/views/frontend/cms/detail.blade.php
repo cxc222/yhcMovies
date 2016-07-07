@@ -1,5 +1,9 @@
 @extends('frontend.layouts.master')
 
+@section('title')
+    {!! $article->title !!}-{{ app_name() }}
+@endsection
+
 @section('content')
     <div class="container">
         <div class="container_back clearfix">

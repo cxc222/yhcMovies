@@ -7,8 +7,8 @@
         <meta name="_token" content="{{ csrf_token() }}" />
         <title>@yield('title', app_name())</title>
         <!-- Meta -->
-        <meta name="description" content="@yield('meta_description', 'Default Description')">
-        <meta name="author" content="@yield('meta_author', 'Anthony Rappa')">
+        <meta name="keywords" content="@yield('meta_author', '')">
+        <meta name="description" content="@yield('meta_description', '小电影网')">
         @yield('meta')
         <!-- Styles -->
         <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">

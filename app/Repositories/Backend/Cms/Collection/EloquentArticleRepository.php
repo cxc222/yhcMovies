@@ -97,6 +97,12 @@ class EloquentArticleRepository implements ArticleRepositoryContract
         }catch (ModelNotFoundException $e){
             $res = Article::firstOrCreate($datas);
         }
+        if($res){
+            //更新本身的 采集源的状态
+            CollectionArticle::where('id', $id)->update([
+                'status' => 2
+            ]);
+        }
         return $res;
     }
 }

@@ -30,41 +30,41 @@
         <ul class="sidebar-menu">
             <li class="header">{{ trans('menus.backend.sidebar.cms') }}</li>
 
-            <li class="{{ Active::pattern('admin/cms/categorys') }}">
+            <li class="{{ active_class(if_uri_pattern(['admin/cms/categorys'])) }}">
                 <a href="{!!url('admin/cms/categorys')!!}"><span>{{ trans('menus.backend.cms.categorys.title') }}</span></a>
             </li>
 
-            <li class="{{ Active::pattern('admin/cms/*') }}">
+            <li class="{{ active_class(if_uri_pattern(['admin/cms/*'])) }}">
                 <a href="{!!url('admin/cms/articles')!!}"><span>{{ trans('menus.backend.cms.title') }}</span></a>
             </li>
 
-            <li class="{{ Active::pattern('admin/coll/*') }}">
+            <li class="{{ active_class(if_uri_pattern(['admin/coll/*'])) }}">
                 <a href="{!!url('admin/coll/collections')!!}"><span>{{ trans('menus.backend.cms.collections.title') }}</span></a>
             </li>
 
             <li class="header">{{ trans('menus.backend.sidebar.general') }}</li>
 
             <!-- Optionally, you can add icons to the links -->
-            <li class="{{ Active::pattern('admin/dashboard') }}">
+            <li class="{{ active_class(if_uri_pattern(['admin/dashboard'])) }}">
                 <a href="{!! route('admin.dashboard') !!}"><span>{{ trans('menus.backend.sidebar.dashboard') }}</span></a>
             </li>
 
             @permission('view-access-management')
-                <li class="{{ Active::pattern('admin/access/*') }}">
+                <li class="{{ active_class(if_uri_pattern(['admin/access/*'])) }}">
                     <a href="{!!url('admin/access/users')!!}"><span>{{ trans('menus.backend.access.title') }}</span></a>
                 </li>
             @endauth
 
-            <li class="{{ Active::pattern('admin/log-viewer*') }} treeview">
+            <li class="{{ active_class(if_uri_pattern(['admin/log-viewer*'])) }} treeview">
                 <a href="#">
                     <span>{{ trans('menus.backend.log-viewer.main') }}</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
-                <ul class="treeview-menu {{ Active::pattern('admin/log-viewer*', 'menu-open') }}" style="display: none; {{ Active::pattern('admin/log-viewer*', 'display: block;') }}">
-                    <li class="{{ Active::pattern('admin/log-viewer') }}">
+                <ul class="treeview-menu {{ active_class(if_uri_pattern(['admin/log-viewer*']), 'menu-open') }}" style="display: none; {{ active_class(if_uri_pattern(['admin/log-viewer*']), 'display: block;') }}">
+                    <li class="{{ active_class(if_uri_pattern(['admin/log-viewer'])) }}">
                         <a href="{!! url('admin/log-viewer') !!}">{{ trans('menus.backend.log-viewer.dashboard') }}</a>
                     </li>
-                    <li class="{{ Active::pattern('admin/log-viewer/logs') }}">
+                    <li class="{{ active_class(if_uri_pattern(['admin/log-viewer/logs'])) }}">
                         <a href="{!! url('admin/log-viewer/logs') !!}">{{ trans('menus.backend.log-viewer.logs') }}</a>
                     </li>
                 </ul>

@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="_token" content="{{ csrf_token() }}" />
+        <meta name="ujianVerification" content="9bf1e5c21e2af1ae03205a9ed6256e9e" />
         <title>@yield('title', app_name())</title>
         <!-- Meta -->
         <meta name="keywords" content="@yield('meta_author', config('frontend.seoKeyWords'))">

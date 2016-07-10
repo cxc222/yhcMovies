@@ -195,6 +195,11 @@ return [
          * Has to override the Collective\Html\HtmlServiceProvider form singleton
          */
         App\Providers\MacroServiceProvider::class,
+
+        /**
+         * custom Providers
+         */
+        App\Providers\FrontendServiceProvider::class
     ],
 
     /*

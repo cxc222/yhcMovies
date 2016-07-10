@@ -21,8 +21,8 @@ Route::group(['namespace' => 'Cms'], function() {
 });
 
 Route::get('test', function (){
-
-    $job = (new App\Jobs\Test());
+    //$job = (new App\Jobs\Test());
+    $job = (new App\Jobs\Baidu());
     dispatch($job);
     return 'Done!';
 })->name('frontend.macros');

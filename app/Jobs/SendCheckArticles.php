@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use Log;
 use App\Jobs\Job;
+use App\Jobs\Baidu;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -41,6 +42,11 @@ class SendCheckArticles extends Job implements ShouldQueue
             if(!$res){
                 //失败 记录日志中
                 Log::info('collection error: check article error. id: '.$data['id']);
+            }else{
+                //提交到百度
+                $url = route('cms.detail', ['id' => $data['id'] ]);
+                $job = (new Baidu($url));
+                dispatch($job);
             }
         }
     }

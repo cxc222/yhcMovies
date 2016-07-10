@@ -18,7 +18,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         // Commands\Inspire::class,
-        Commands\TestCheckArticle::class
+        Commands\TestCheckArticle::class,
+        Commands\Test::class
     ];
 
     /**

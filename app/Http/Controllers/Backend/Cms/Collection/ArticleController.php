@@ -33,7 +33,7 @@ class ArticleController extends Controller
 
     function index(){
         return view('backend.cms.collection.index')
-            ->withArticles($this->articles->getArticlePaginated(25, 1));
+            ->withArticles($this->articles->getArticlePaginated(25));
     }
 
     /**

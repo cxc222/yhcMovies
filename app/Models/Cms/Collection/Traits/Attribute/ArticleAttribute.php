@@ -26,7 +26,7 @@ trait ArticleAttribute
      * @return bool
      */
     public function isActive() {
-        return $this->status == 1;
+        return $this->status;
     }
 
     /**

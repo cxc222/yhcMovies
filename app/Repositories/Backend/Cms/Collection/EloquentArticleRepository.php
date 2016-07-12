@@ -19,7 +19,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
     public function getArticlePaginated($per_page, $status = 0, $order_by = 'coll_id', $sort = 'desc')
     {
         $modelCls = CollectionArticle::orderBy($order_by, $sort);
-        if($status){
+        if($status && !empty($status)){
             $modelCls = $modelCls->where('status', $status);
         }
         return $modelCls->paginate($per_page);
@@ -97,6 +97,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
         }catch (ModelNotFoundException $e){
             $res = Article::firstOrCreate($datas);
         }
+        
         if($res){
             //更新本身的 采集源的状态
             CollectionArticle::where('id', $id)->update([

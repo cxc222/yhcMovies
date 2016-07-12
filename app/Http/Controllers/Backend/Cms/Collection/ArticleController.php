@@ -47,11 +47,11 @@ class ArticleController extends Controller
             }
             $res = $this->articles->checkArticle($id);
             if(!$res){
-                print_r($res->id);
-                die;
+                /*print_r($res->id);
+                die;*/
             }
             //if($article->status)
-            return $this->ResponseSuccess('ok', $res->id);
+            return $this->ResponseSuccess('ok');
         }
     }
 }

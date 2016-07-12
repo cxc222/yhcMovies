@@ -37,7 +37,8 @@ class EloquentArticleRepository implements ArticleRepositoryContract
         if($collectionArticle->status == 2){
             //配对
             $article = Article::where('sort', $collectionArticle->coll_id)->firstOrFail();
-            if($article->down_url == $collectionArticle->down_url
+            if($article->title == $collectionArticle->title
+                || $article->down_url == $collectionArticle->down_url
                 || $article->down_url_cyclone == $collectionArticle->down_url_cyclone
                 || $article->down_url_xunlei == $collectionArticle->down_url_xunlei){
                 return false;
@@ -102,7 +103,6 @@ class EloquentArticleRepository implements ArticleRepositoryContract
         }catch (ModelNotFoundException $e){
             $res = Article::firstOrCreate($datas);
         }
-        
         if($res){
             //更新本身的 采集源的状态
             CollectionArticle::where('id', $id)->update([

@@ -46,9 +46,8 @@ class EloquentArticleRepository implements ArticleRepositoryContract
         }
         $dom = new Dom;
         $dom->load($collectionArticle->attribute);
-
         $attributeDivHtml = $dom->find('.span7 div');
-        if($attributeDivHtml){
+        if(isset($attributeDivHtml[0]) && !empty($attributeDivHtml[0])){
             $attrs = [];
             foreach ($attributeDivHtml as $attributeDiv){
                 $attrs[] = $attributeDiv->text;

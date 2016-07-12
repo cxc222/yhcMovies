@@ -26,8 +26,8 @@ class EloquentArticleRepository implements ArticleRepositoryContract
     public function getArticlePaginated($per_page, $status = 1)
     {
         return Article::where('status', $status)
-            ->orderBy('sort', 'desc')
             ->orderBy('updated_at', 'desc')
+            ->orderBy('sort', 'desc')
             ->paginate($per_page);
     }
 

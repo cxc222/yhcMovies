@@ -1,6 +1,6 @@
 @extends ('backend.cms.collection.base')
 
-@section ('title', trans('labels.backend.cms.category.management'))
+@section ('title', trans('labels.backend.cms.collection.management'))
 
 @section('page-header')
     <h1>

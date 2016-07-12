@@ -35,9 +35,14 @@ class EloquentArticleRepository implements ArticleRepositoryContract
     {
         $collectionArticle = CollectionArticle::findOrFail($id);
         if($collectionArticle->status == 2){
-            return false;
+            //配对
+            $article = Article::where('sort', $collectionArticle->coll_id)->firstOrFail();
+            if($article->down_url == $collectionArticle->down_url
+                || $article->down_url_cyclone == $collectionArticle->down_url_cyclone
+                || $article->down_url_xunlei == $collectionArticle->down_url_xunlei){
+                return false;
+            }
         }
-
         $dom = new Dom;
         $dom->load($collectionArticle->attribute);
 

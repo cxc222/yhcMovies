@@ -37,6 +37,7 @@ class Article extends Model
         'coll_id',
         'down_url',
         'down_url_cyclone',
-        'down_url_xunlei'
+        'down_url_xunlei',
+        'status'
     ];
 }

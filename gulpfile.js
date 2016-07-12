@@ -22,6 +22,10 @@ elixir(function(mix) {
        'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
        'public/js/vendor/bootstrap'
      )
+     .copy(
+         'node_modules/clipboard/dist/clipboard.js',
+         'resources/assets/js/vendor/clipboard'
+     )
 
      /**
       * copy 到内部 vendor文件夹
@@ -45,7 +49,7 @@ elixir(function(mix) {
      .copy(
          [
              'node_modules/bootstrap-fileinput/js/fileinput.js',
-             'node_modules/bootstrap-fileinput/js/fileinput_locale_zh.js'
+             'node_modules/bootstrap-fileinput/js/locales/zh.js'
          ],
          'resources/assets/js/vendor/bootstrap-fileinput/'
      )
@@ -98,9 +102,10 @@ elixir(function(mix) {
       * Combine frontend scripts
       */
      .scripts([
-        'plugin/sweetalert/sweetalert.min.js',
-        'plugins.js',
-        'frontend/app.js'
+         'vendor/clipboard/clipboard.js',
+         'plugin/sweetalert/sweetalert.min.js',
+         'plugins.js',
+         'frontend/app.js'
      ], 'public/js/frontend.js')
 
      /**
@@ -144,7 +149,7 @@ elixir(function(mix) {
 
      .scripts([
          'vendor/bootstrap-fileinput/fileinput.js',
-         'vendor/bootstrap-fileinput/fileinput_locale_zh.js',
+         'vendor/bootstrap-fileinput/zh.js',
      ], 'public/vendor/bootstrap-fileinput/js/fileinput.js')
 
      .scripts([

@@ -39,15 +39,27 @@
                                 下载地址
                             </div>
                             <div class="panel-body">
-                                <p class="bg-warning">如点击"本地高速下载"没有反应, 请右键复制下载地址, 用迅雷下载!</p>
-                                <br/>
-                                <a class="label label-warning" id="normal_link" title="{!! $article->title !!}"
-                                   href="{!! $article->down_url !!}">本地高速下载</a>
-                                <a class="label label-primary" id="xf_link" title="{!! $article->title !!}" onclick="XFLIB.startDownload(this,event)"
-                                   qhref="{!! $article->down_url_cyclone !!}" href="javascript:void(0);">旋风专用下载</a>
-                                <a class="label label-info" id="xl_link"
-                                   title="{!! $article->title !!}" onclick=xldown({!! $article->down_url_xunlei !!})
-                                   oncontextmenu="ThunderNetwork_SetHref(this)" href="javascript:void(0);">迅雷专用下载</a>
+                                <div class="form-group">
+                                    <p class="bg-warning">如点击"本地高速下载"没有反应, 请右键复制下载地址, 用迅雷下载!</p>
+                                    <br/>
+                                    <a class="label label-warning" id="normal_link" title="{!! $article->title !!}"
+                                       href="{!! $article->down_url !!}">本地高速下载</a>
+                                    <a class="label label-primary" id="xf_link" title="{!! $article->title !!}" onclick="XFLIB.startDownload(this,event)"
+                                       qhref="{!! $article->down_url_cyclone !!}" href="javascript:void(0);">旋风专用下载</a>
+                                    <a class="label label-info" id="xl_link"
+                                       title="{!! $article->title !!}" onclick=xldown({!! $article->down_url_xunlei !!})
+                                       oncontextmenu="ThunderNetwork_SetHref(this)" href="javascript:void(0);">迅雷专用下载</a>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group col-xs-12">
+                                        <input type="text" name="keyword" class="form-control input-sm" value="{!! $article->down_url !!}">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-warning btn-sm" id="copyUrl" data-clipboard-text="{!! $article->down_url !!}">
+                                                <i class="fa fa-clipboard"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -74,5 +86,7 @@
             var link = ThunderEncode(linkObj);
             OnDownloadClick(link,'',location.href,'0',2,'');
         };
+
+        var clipboard = new Clipboard('#copyUrl');
     </script>
 @stop

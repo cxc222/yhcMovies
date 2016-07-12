@@ -16,6 +16,7 @@
     "bootstrap-fileinput": "^4.2.8",
     "bootstrap-tagsinput": "^0.7.1",
     "bootstrap-treeview": "^1.2.0",
+    "clipboard": "^1.5.12",
     "simditor": "~2.3.6"
   }
 }

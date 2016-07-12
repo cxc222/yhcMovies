@@ -17,7 +17,7 @@
         {!! Html::style(elixir('css/frontend.css')) !!}
         @yield('after-styles-end')
         <!-- Fonts -->
-        <link href="http://fonts.useso.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext" rel='stylesheet' type='text/css'>
+        <link href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">

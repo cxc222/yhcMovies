@@ -24,8 +24,8 @@ class ArticleController extends Controller
 
     /**
      * 最新列表
-     * @param ArticleRepositoryContract $articles
      * @param int $page
+     * @return
      */
     public function newsList($page=1){
         $limit = 25;
@@ -34,5 +34,16 @@ class ArticleController extends Controller
             $article->type = explode("/", $article->type);
         }
         return view('frontend.cms.news')->withArticles($articles);
+    }
+
+    /**
+     * 搜索
+     */
+    public function search($keyword, $page=1){
+        $limit = 25;
+        $articles = $this->articles->getArticlePaginated($limit, 1, $keyword);
+        return view('frontend.cms.search')
+            ->withKeyword($keyword)
+            ->withArticles($articles);
     }
 }

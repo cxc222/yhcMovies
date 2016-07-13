@@ -23,12 +23,19 @@ class EloquentArticleRepository implements ArticleRepositoryContract
      * @param  $status
      * @return mixed
      */
-    public function getArticlePaginated($per_page, $status = 1)
+    public function getArticlePaginated($per_page, $status = 1, $keyword='')
     {
-        return Article::where('status', $status)
-            ->orderBy('updated_at', 'desc')
+        $articles = Article::where('status', $status);
+        if($keyword){
+            $articles = $articles->where('title', 'like', "%$keyword%");
+        }
+        $articles = $articles->orderBy('updated_at', 'desc')
             ->orderBy('sort', 'desc')
             ->paginate($per_page);
+        foreach ($articles as &$article){
+            $article->typeArray = explode("/", $article->type);
+        }
+        return $articles;
     }
 
     /**

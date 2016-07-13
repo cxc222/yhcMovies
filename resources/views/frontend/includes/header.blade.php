@@ -29,4 +29,14 @@
             </ul>
         </li>--}}
     </ul>
+    <form class="navbar-form navbar-left search-form" action="{!! route('cms.search') !!}" method="get" data-url="{!! route('cms.search') !!}">
+        <div class="input-group">
+            <input type="text" placeholder="电影" class="form-control" id="search-input" value="@yield('keyword', '')">
+            <span class="input-group-btn">
+                <button type="submit" class="btn">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </form>
 </div><!--/.nav-collapse -->

@@ -18,6 +18,11 @@ Route::group(['namespace' => 'Cms'], function() {
     Route::get('news/{page?}', 'ArticleController@newsList')
         ->where('page', '[0-9]+')
         ->name('cms.news');
+
+    Route::get('search/{keyword?}/{page?}', 'ArticleController@search')
+        ->where('page', '[0-9]+')
+        //->where('keyword', '')
+        ->name('cms.search');
 });
 
 Route::get('test', function (){

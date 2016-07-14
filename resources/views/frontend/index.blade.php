@@ -12,11 +12,15 @@
                             <a href="{!! route('cms.detail', ['id' => $article->id ]) !!}" target="_blank">
                                 {!! $article->title !!}
                             </a>
-
-                            @foreach ($article->type as $type)
+                            @foreach ($article->typeArray as $type)
                                 <span style="padding:1px 3px;" class="label label-primary">{{ $type }}</span>&nbsp;
                             @endforeach
-
+                            @if ($article->douban_rating)
+                                <span class="text-danger">
+                                    <img src="https://img3.doubanio.com/pics/douban-icons/favicon_16x16.png" />
+                                    {{ $article->douban_rating }}
+                                </span>
+                            @endif
                             <br>
                             <small class="text-muted">导演：{!! $article->director !!}</small>
                             <small class="text-muted">演员：{!! $article->actors !!}</small>

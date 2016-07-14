@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Backend\Cms\Article\ArticleRepositoryContract;
+use App\Repositories\Frontend\Cms\Article\ArticleRepositoryContract;
 
 /**
  * Class FrontendController
@@ -25,9 +25,6 @@ class FrontendController extends Controller
         $articles = $this
             ->articles
             ->getArticlePaginated(25, 1);
-        foreach ($articles as &$article){
-            $article->type = explode("/", $article->type);
-        }
         return view('frontend.index')
             ->withArticles($articles)
             ->withName('Victoria');

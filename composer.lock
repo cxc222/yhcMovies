@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "arcanedev/log-viewer",
-            "version": "3.10.0",
+            "version": "3.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/LogViewer.git",
-                "reference": "c7715b18d750c9feb4a4280137963f12ae655794"
+                "reference": "e00027530991254d0fbf60018709bd973a077124"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/ARCANEDEV/LogViewer/c7715b18d750c9feb4a4280137963f12ae655794.zip",
-                "reference": "c7715b18d750c9feb4a4280137963f12ae655794",
+                "url": "https://packagist.phpcomposer.com/files/ARCANEDEV/LogViewer/e00027530991254d0fbf60018709bd973a077124.zip",
+                "reference": "e00027530991254d0fbf60018709bd973a077124",
                 "shasum": ""
             },
             "require": {
@@ -68,7 +68,7 @@
                 "log-viewer",
                 "logviewer"
             ],
-            "time": "2016-06-06 01:38:50"
+            "time": "2016-07-12 20:48:37"
         },
         {
             "name": "arcanedev/support",

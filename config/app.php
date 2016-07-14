@@ -257,7 +257,8 @@ return [
         'Html'        => Collective\Html\HtmlFacade::class,
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
 
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image'       => Intervention\Image\Facades\Image::class,
+        'Carbon'      =>  Carbon\Carbon::class
     ],
 
 ];

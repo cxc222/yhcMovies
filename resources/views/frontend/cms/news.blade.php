@@ -26,7 +26,7 @@
                                         <p class="mdes">
                                             <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                                             @if($article->release_date)
-                                                {{ $article->release_date }}
+                                                {{ Carbon::parse($article->release_date)->toDateString() }}
                                             @endif
                                             &nbsp;
                                             <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>

@@ -23,8 +23,9 @@
                                 <strong>主演：</strong>{{ $article->actors }}<br>
                                 <strong>上映时间：</strong>
                                 @if($article->release_date)
-                                    {{ $article->release_date }}
-                                @endif<br>
+                                    {{ Carbon::parse($article->release_date)->toDateString() }}
+                                @endif
+                                <br>
                                 <strong>语言：</strong>{{ $article->language }}<br>
                                 <strong>片长：</strong>{{ $article->film_long }}<br>
                                 <strong>国家：</strong>{{ $article->country }}<br>

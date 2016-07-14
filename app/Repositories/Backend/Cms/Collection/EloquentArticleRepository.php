@@ -4,8 +4,10 @@ namespace App\Repositories\Backend\Cms\Collection;
 use App\Exceptions\GeneralException;
 use App\Models\Cms\Collection\Article as CollectionArticle;
 use App\Models\Cms\Article\Article;
+use App\Models\Cms\Article\Personnel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use PHPHtmlParser\Dom;
+use App\Libraries\Douban;
 
 class EloquentArticleRepository implements ArticleRepositoryContract
 {
@@ -34,7 +36,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
     public function checkArticle($id)
     {
         $collectionArticle = CollectionArticle::findOrFail($id);
-        if($collectionArticle->status == 2){
+        /*if($collectionArticle->status == 2){
             //配对
             $article = Article::where('sort', $collectionArticle->coll_id)->firstOrFail();
             if($article->title == $collectionArticle->title
@@ -43,7 +45,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                 || $article->down_url_xunlei == $collectionArticle->down_url_xunlei){
                 return false;
             }
-        }
+        }*/
         $dom = new Dom;
         $dom->load($collectionArticle->attribute);
         $attributeDivHtml = $dom->find('.span7 div');
@@ -57,10 +59,12 @@ class EloquentArticleRepository implements ArticleRepositoryContract
             $attributeHtml = $dom->find('.span7')->innerHTML;
             $attributeHtml = replaceWrap($attributeHtml);
         }
+
         $attrs = wrapTurnArray($attributeHtml);
         $datas = [];
         $datas['cover'] = $collectionArticle->cover;
         $datas['title'] = $collectionArticle->title;
+
         foreach ($attrs as $attrKey => $attrVal){
             switch ($attrKey){
                 case '导演':
@@ -86,6 +90,9 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                 case '片长':
                     $datas['film_long'] = trim($attrVal);
                     break;
+                case '又名':
+                    $datas['alias'] = join(",", explode("/", trim($attrVal)));
+                    break;
             }
         }
         $datas['sort'] = $collectionArticle->coll_id;
@@ -95,6 +102,80 @@ class EloquentArticleRepository implements ArticleRepositoryContract
         $datas['down_url_cyclone'] = $collectionArticle->down_url_cyclone;
         $datas['down_url_xunlei'] = $collectionArticle->down_url_xunlei;
 
+        preg_match_all("/(?:《)(.*)(?:》)/i", $datas['title'], $alias);
+        if(isset($alias) && !empty($alias)){
+            //又名 有数据 调用 豆瓣电影的api - 通过 豆瓣的 api  更新本地的 电影信息
+            $response = Douban::movie_search($alias[1][0]);
+            if(isset($response->subjects[0]) && !empty($response->subjects[0])){
+                $subject = Douban::movie_subject($response->subjects[0]->id);
+                if($subject){
+                    $datas['douban_id'] = $subject->id;
+
+                    //导演
+                    $directors = [];
+                    foreach ($subject->directors as $director){
+                        //获取 影片信息
+                        $_data['name'] = $director->name;
+                        $_data['avatars'] = $director->avatars->large;
+                        try{
+                            $personnel = Personnel::where('name', $director->name)
+                                ->firstOrFail();
+                            Personnel::where('id', $personnel['id'])
+                                ->update($_data);
+                            $_id = $personnel['id'];
+                        }catch (ModelNotFoundException $e){
+                            $_id = Personnel::firstOrCreate($_data);
+                        }
+                        $directors[] = $_id;
+                    }
+
+                    //主演
+                    $casts = [];
+                    foreach ($subject->casts as $cast){
+                        //获取 影片信息
+                        $_data['name'] = $cast->name;
+                        $_data['avatars'] = $cast->avatars->large;
+                        try{
+                            $personnel = Personnel::where('name', $cast->name)
+                                ->firstOrFail();
+                            Personnel::where('id', $personnel['id'])
+                                ->update($_data);
+                            $_id = $personnel['id'];
+                        }catch (ModelNotFoundException $e){
+                            $_id = Personnel::firstOrCreate($_data);
+                        }
+                        $casts[] = $_id;
+                    }
+                    if($subject->genres){
+                        $datas['type'] = join("/", $subject->genres);
+                    }
+                    if($subject->countries){
+                        $datas['country'] = join("/", $subject->countries);
+                    }
+                    if($subject->year){
+                        $datas['year'] = $subject->year;
+                    }
+                    if($subject->aka){
+                        $datas['alias'] = join(",", $subject->aka);
+                    }
+                    if($subject->summary){
+                        $datas['content'] = $subject->summary;
+                    }
+                    if($subject->rating){
+                        $datas['douban_rating'] = $subject->rating->average;
+                    }
+
+                    //director_ids
+                    if($directors){
+                        $datas['director_ids'] = json_encode($directors);
+                    }
+                    //actor_ids
+                    if($casts){
+                        $datas['actor_ids'] = json_encode($casts);
+                    }
+                }
+            }
+        }
         try{
             $article = Article::where('sort', $collectionArticle->coll_id)->firstOrFail();
             Article::where('id', $article['id'])->update($datas);

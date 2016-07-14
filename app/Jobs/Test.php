@@ -7,6 +7,7 @@ use App\Jobs\Job;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Repositories\Backend\Cms\Collection\ArticleRepositoryContract;
 
 class Test extends Job implements ShouldQueue
 {
@@ -27,9 +28,12 @@ class Test extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(ArticleRepositoryContract $articleRepositoryContract)
     {
         //
-        Log::info('This is some useful information.');
+        //Log::info('This is some useful information.');
+        $res = $articleRepositoryContract->checkArticle(65);
+        print_r($res);
+        die;
     }
 }

@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Cms\Article\Traits\Attribute\ArticleAttribute;
 
-class Article extends Model
+class Personnel extends Model
 {
     use SoftDeletes, ArticleAttribute;
     /**
@@ -14,7 +14,7 @@ class Article extends Model
      * @var array
      */
     protected $guarded = ['id'];
-    
+
     /**
      * @var array
      */
@@ -26,28 +26,8 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
-        'alias',
-        'cover',
-        'country',
-        'language',
-        'type',
-        'year',
-        'release_date',
-        'director',
-        'actors',
-        'content',
-        'down_url',
-        'down_url_cyclone',
-        'down_url_xunlei',
-        'view_cnt',
-        'status',
-        'sort',
-        'created_at',
-        'updated_at',
-        'douban_id',
-        'douban_rating',
-        'director_ids',
-        'actor_ids'
+        'name',
+        'avatars',
+        'created_at'
     ];
 }

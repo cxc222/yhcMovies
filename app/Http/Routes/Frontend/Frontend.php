@@ -25,11 +25,29 @@ Route::group(['namespace' => 'Cms'], function() {
         ->name('cms.search');
 });
 
-Route::get('test', function (){
-    //$job = (new App\Jobs\Test());
-    $job = (new App\Jobs\Baidu());
+Route::get('test', function (App\Repositories\Backend\Cms\Collection\ArticleRepositoryContract $articleRepositoryContract){
+    /*$job = (new App\Jobs\Test());
+    //$job = (new App\Jobs\Baidu());
     dispatch($job);
-    return 'Done!';
+    return 'Done!';*/
+
+    /*$res = $articleRepositoryContract->checkArticle(66);
+    print_r($res);
+    die;*/
+
+    /*preg_match_all("/(?:《)(.*)(?:》)/i", "2016高分剧情《魔兽》HD720P.中英双字", $alias);
+    //$b = \App\Libraries\Douban::movie_search($alias[1][0]);
+    $response = \App\Libraries\Douban::movie_search($alias[1][0]);
+    if(isset($response->subjects[0]) && !empty($response->subjects[0])){
+        $subject = \App\Libraries\Douban::movie_subject($response->subjects[0]->id);
+        foreach ($subject->directors as $director){
+            print_r($director);
+            die;
+        }
+
+    }
+    print_r($subject);
+    die;*/
 })->name('frontend.macros');
 
 /**

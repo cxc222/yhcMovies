@@ -93,8 +93,9 @@
             $(this).select();
         });
         clipboard.on('success', function(e) {
+            e.clearSelection();
             downUrlText.click();
-            //e.clearSelection();
+            //
         });
     </script>
 @stop

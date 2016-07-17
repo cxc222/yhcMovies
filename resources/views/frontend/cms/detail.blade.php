@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group col-xs-12">
-                                        <input type="text" name="keyword" class="form-control input-sm" value="{!! $article->down_url !!}">
+                                        <input type="text" id="down_url_text" class="form-control input-sm" value="{!! $article->down_url !!}" readonly="readonly">
                                         <span class="input-group-btn">
                                             <button class="btn btn-warning btn-sm" id="copyUrl" data-clipboard-text="{!! $article->down_url !!}">
                                                 <i class="fa fa-clipboard"></i>
@@ -88,6 +88,13 @@
             OnDownloadClick(link,'',location.href,'0',2,'');
         };
 
-        var clipboard = new Clipboard('#copyUrl');
+        var clipboard = new Clipboard('#copyUrl'), downUrlText = $("#down_url_text");
+        downUrlText.click(function(){
+            $(this).select();
+        });
+        clipboard.on('success', function(e) {
+            downUrlText.click();
+            //e.clearSelection();
+        });
     </script>
 @stop

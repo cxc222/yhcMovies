@@ -29,8 +29,9 @@ class EloquentArticleRepository implements ArticleRepositoryContract
         if($keyword){
             $articles = $articles->where('title', 'like', "%$keyword%");
         }
-        $articles = $articles->orderBy('updated_at', 'desc')
+        $articles = $articles
             ->orderBy('sort', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->paginate($per_page);
         foreach ($articles as &$article){
             $article->typeArray = explode("/", $article->type);

@@ -36,7 +36,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
     public function checkArticle($id)
     {
         $collectionArticle = CollectionArticle::findOrFail($id);
-        /*if($collectionArticle->status == 2){
+        if($collectionArticle->status == 2){
             //配对
             $article = Article::where('sort', $collectionArticle->coll_id)->firstOrFail();
             if($article->title == $collectionArticle->title
@@ -45,7 +45,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                 || $article->down_url_xunlei == $collectionArticle->down_url_xunlei){
                 return false;
             }
-        }*/
+        }
         $dom = new Dom;
         $dom->load($collectionArticle->attribute);
         $attributeDivHtml = $dom->find('.span7 div');

@@ -31,6 +31,7 @@ class Douban
         $response = \Httpful\Request::get($url)
             ->expectsJson()
             ->send();
+
         if($response->code != 200){
             return false;
         }

@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group col-xs-12">
-                                        <input type="text" id="down_url_text" class="form-control input-sm" value="{!! $article->down_url !!}" readonly="readonly">
+                                        <input type="text" id="down_url_text" class="form-control input-sm" value="{!! $article->down_url !!}">
                                         <span class="input-group-btn">
                                             <button class="btn btn-warning btn-sm" id="copyUrl" data-clipboard-text="{!! $article->down_url !!}">
                                                 <i class="fa fa-clipboard"></i>

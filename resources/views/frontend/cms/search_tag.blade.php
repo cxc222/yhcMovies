@@ -6,7 +6,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-10">
                 <div class="white-div">
-                    <h4 style="padding:6px 20px 0px 20px;">最新电影</h4>
+                    <h4 style="padding:6px 20px 0px 20px;">类型 "{{ $tag }}"</h4>
                     <ul class="list-unstyled mlist">
                         @foreach ($articles as $article)
                             @include('frontend.cms.includes.item')
@@ -23,5 +23,4 @@
 @endsection
 
 @section('after-scripts-end')
-
 @stop

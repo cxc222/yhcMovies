@@ -23,6 +23,11 @@ Route::group(['namespace' => 'Cms'], function() {
         ->where('page', '[0-9]+')
         //->where('keyword', '')
         ->name('cms.search');
+
+    Route::get('tag/{tag}/{page?}', 'ArticleController@searchTag')
+        ->where('page', '[0-9]+')
+        //->where('keyword', '')
+        ->name('cms.search.tag');
 });
 
 Route::get('test', function (App\Repositories\Backend\Cms\Collection\ArticleRepositoryContract $articleRepositoryContract){
@@ -31,9 +36,9 @@ Route::get('test', function (App\Repositories\Backend\Cms\Collection\ArticleRepo
     dispatch($job);
     return 'Done!';*/
 
-    $res = $articleRepositoryContract->checkArticle(66);
+    /*$res = $articleRepositoryContract->checkArticle(66);
     print_r($res);
-    die;
+    die;*/
 
     /*preg_match_all("/(?:《)(.*)(?:》)/i", "2016高分剧情《魔兽》HD720P.中英双字", $alias);
     //$b = \App\Libraries\Douban::movie_search($alias[1][0]);

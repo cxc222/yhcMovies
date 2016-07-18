@@ -19,15 +19,21 @@ class EloquentArticleRepository implements ArticleRepositoryContract
     }
 
     /**
-     * @param  $per_page
-     * @param  $status
+     * @param $per_page
+     * @param int $status
+     * @param string $keyword
+     * @param string $tag
      * @return mixed
      */
-    public function getArticlePaginated($per_page, $status = 1, $keyword='')
+    public function getArticlePaginated($per_page, $status = 1, $keyword='', $tag='')
     {
         $articles = Article::where('status', $status);
         if($keyword){
             $articles = $articles->where('title', 'like', "%$keyword%");
+        }
+        //tag 标签
+        if($tag){
+            $articles = $articles->where('type', 'like', "%$tag%");
         }
         $articles = $articles
             ->orderBy('sort', 'desc')

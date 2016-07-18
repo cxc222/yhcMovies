@@ -46,4 +46,16 @@ class ArticleController extends Controller
             ->withKeyword($keyword)
             ->withArticles($articles);
     }
+
+    /**
+     * 根据 tag 检索列表
+     * @param string $tag
+     */
+    public function searchTag($tag=''){
+        $limit = 25;
+        $articles = $this->articles->getArticlePaginated($limit, 1, '', $tag);
+        return view('frontend.cms.search_tag')
+            ->withTag($tag)
+            ->withArticles($articles);
+    }
 }

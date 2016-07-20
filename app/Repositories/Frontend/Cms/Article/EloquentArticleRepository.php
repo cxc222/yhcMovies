@@ -36,6 +36,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
             $articles = $articles->where('type', 'like', "%$tag%");
         }
         $articles = $articles
+            ->orderBy('created_at', 'desc')
             ->orderBy('sort', 'desc')
             ->orderBy('updated_at', 'desc')
             ->paginate($per_page);

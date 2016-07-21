@@ -31,14 +31,14 @@ Route::group(['namespace' => 'Cms'], function() {
 });
 
 Route::get('test', function (App\Repositories\Backend\Cms\Collection\ArticleRepositoryContract $articleRepositoryContract){
-    /*$job = (new App\Jobs\Test);
+    $job = (new App\Jobs\Test);
     //$job = (new App\Jobs\Baidu());
     dispatch($job);
     return 'Done!';
 
     $res = $articleRepositoryContract->checkArticle(66);
     print_r($res);
-    die;*/
+    die;
 
     /*preg_match_all("/(?:《)(.*)(?:》)/i", "2016高分剧情《魔兽》HD720P.中英双字", $alias);
     //$b = \App\Libraries\Douban::movie_search($alias[1][0]);

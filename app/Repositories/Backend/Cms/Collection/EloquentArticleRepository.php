@@ -8,6 +8,7 @@ use App\Models\Cms\Article\Personnel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use PHPHtmlParser\Dom;
 use App\Libraries\Douban;
+use DB;
 
 class EloquentArticleRepository implements ArticleRepositoryContract
 {
@@ -125,14 +126,16 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                         if(isset($director->avatars) && isset($director->avatars->large)){
                             $_data['avatars'] = $director->avatars->large;
                         }
-                        try{
+                        if($_data['name']){
                             $personnel = Personnel::where('name', $director->name)
                                 ->first();
-                            Personnel::where('id', $personnel['id'])
-                                ->update($_data);
-                            $_id = $personnel['id'];
-                        }catch (ModelNotFoundException $e){
-                            $_id = Personnel::firstOrCreate($_data);
+                            if($personnel){
+                                Personnel::where('id', $personnel['id'])
+                                    ->update($_data);
+                                $_id = $personnel['id'];
+                            }else{
+                                $_id = Personnel::firstOrCreate($_data);
+                            }
                         }
                         $directors[] = $_id;
                     }
@@ -145,18 +148,19 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                         if(isset($cast->avatars) && isset($cast->avatars->large)){
                             $_data['avatars'] = $cast->avatars->large;
                         }
-                        try{
+                        if($_data['name']){
                             $personnel = Personnel::where('name', $cast->name)
                                 ->first();
-                            Personnel::where('id', $personnel['id'])
-                                ->update($_data);
-                            $_id = $personnel['id'];
-                        }catch (ModelNotFoundException $e){
-                            $_id = Personnel::firstOrCreate($_data);
+                            if($personnel){
+                                Personnel::where('id', $personnel['id'])
+                                    ->update($_data);
+                                $_id = $personnel['id'];
+                            }else{
+                                $_id = Personnel::firstOrCreate($_data);
+                            }
                         }
                         $casts[] = $_id;
                     }
-                    
                     if(isset($subject->genres) && !empty($subject->genres)){
                         $datas['type'] = join("/", $subject->genres);
                     }
@@ -186,11 +190,11 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                 }
             }
         }
-        try{
-            $article = Article::where('sort', $collectionArticle->coll_id)->first();
+        $article = Article::where('sort', $collectionArticle->coll_id)->first();
+        if($article){
             Article::where('id', $article['id'])->update($datas);
             $res = $article['id'];
-        }catch (ModelNotFoundException $e){
+        }else{
             $res = Article::firstOrCreate($datas);
         }
         if($res){

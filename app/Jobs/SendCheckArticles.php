@@ -48,6 +48,7 @@ class SendCheckArticles extends Job implements ShouldQueue
                 $job = (new Baidu($url));
                 dispatch($job);
             }
+            return true;
         }
     }
 

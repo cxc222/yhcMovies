@@ -38,8 +38,6 @@ class EloquentArticleRepository implements ArticleRepositoryContract
     {
         $collectionArticle = CollectionArticle::find($id);
 
-        /*print_r($collectionArticle);
-        die;
         if($collectionArticle->status == 2){
             //配对
             $article = Article::where('sort', $collectionArticle->coll_id)->first();
@@ -52,7 +50,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                 || $article->down_url_xunlei == $collectionArticle->down_url_xunlei){
                 return false;
             }
-        }*/
+        }
         $dom = new Dom;
         $dom->load($collectionArticle->attribute);
         $attributeDivHtml = $dom->find('.span7 div');

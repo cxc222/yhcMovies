@@ -116,7 +116,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                     foreach ($subject->directors as $director){
                         //获取 影片信息
                         $_data['name'] = $director->name;
-                        if(isset($director->avatars)){
+                        if(isset($director->avatars) && isset($director->avatars->large)){
                             $_data['avatars'] = $director->avatars->large;
                         }
                         try{

@@ -37,7 +37,9 @@ class EloquentArticleRepository implements ArticleRepositoryContract
     public function checkArticle($id)
     {
         $collectionArticle = CollectionArticle::find($id);
-
+        if(!$collectionArticle){
+            return false;
+        }
         if($collectionArticle->status == 2){
             //配对
             $article = Article::where('sort', $collectionArticle->coll_id)->first();
@@ -115,7 +117,6 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                 $subject = Douban::movie_subject($response->subjects[0]->id);
                 if($subject){
                     $datas['douban_id'] = $subject->id;
-
                     //导演
                     $directors = [];
                     foreach ($subject->directors as $director){

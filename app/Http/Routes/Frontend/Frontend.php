@@ -31,12 +31,12 @@ Route::group(['namespace' => 'Cms'], function() {
 });
 
 Route::get('test', function (App\Repositories\Backend\Cms\Collection\ArticleRepositoryContract $articleRepositoryContract){
-    /*$job = (new App\Jobs\Test());
+    /*$job = (new App\Jobs\Test);
     //$job = (new App\Jobs\Baidu());
     dispatch($job);
-    return 'Done!';*/
+    return 'Done!';
 
-    /*$res = $articleRepositoryContract->checkArticle(66);
+    $res = $articleRepositoryContract->checkArticle(66);
     print_r($res);
     die;*/
 

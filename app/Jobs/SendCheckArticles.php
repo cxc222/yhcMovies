@@ -38,29 +38,31 @@ class SendCheckArticles extends Job implements ShouldQueue
     {
         //
         if(isset($data['id']) && !empty($data['id'])){
-            $res = $this->articleRepositoryContract->checkArticle($data['id']);
+            $res = $this->checkArticle($data['id']);
             if(!$res){
                 //失败 记录日志中
-                Log::info('collection error: check article error. id: '.$data['id']);
+                Log::error('collection error: check article error. id: '.$data['id']);
             }else{
                 //提交到百度
                 $url = route('cms.detail', ['id' => $data['id'] ]);
                 $job = (new Baidu($url));
                 dispatch($job);
             }
-            return true;
         }
     }
 
-    /**
-     * 参与测试 test
-     *
-     */
-    public function test(){
-        $res = $this->articleRepositoryContract->checkArticle(3);
-        if(!$res){
-            //失败 记录日志中
-            Log::info('test collection error: check article error.');
-        }
+    public function checkArticle($id){
+          try{
+              $this->articleRepositoryContract->checkArticle($id);
+          }catch (ModelNotFoundException $e){
+
+          }
+        return ;
+    }
+
+    //队列任务失败执行此方法
+    public function failed()
+    {
+        //Log::error("fail send to ".$this->name);
     }
 }

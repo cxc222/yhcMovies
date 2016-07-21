@@ -35,17 +35,23 @@ class EloquentArticleRepository implements ArticleRepositoryContract
      */
     public function checkArticle($id)
     {
-        $collectionArticle = CollectionArticle::findOrFail($id);
+        $collectionArticle = CollectionArticle::find($id);
+
+        /*print_r($collectionArticle);
+        die;
         if($collectionArticle->status == 2){
             //配对
-            $article = Article::where('sort', $collectionArticle->coll_id)->firstOrFail();
+            $article = Article::where('sort', $collectionArticle->coll_id)->first();
+            if(!$article){
+                return false;
+            }
             if($article->title == $collectionArticle->title
                 || $article->down_url == $collectionArticle->down_url
                 || $article->down_url_cyclone == $collectionArticle->down_url_cyclone
                 || $article->down_url_xunlei == $collectionArticle->down_url_xunlei){
                 return false;
             }
-        }
+        }*/
         $dom = new Dom;
         $dom->load($collectionArticle->attribute);
         $attributeDivHtml = $dom->find('.span7 div');
@@ -121,7 +127,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                         }
                         try{
                             $personnel = Personnel::where('name', $director->name)
-                                ->firstOrFail();
+                                ->first();
                             Personnel::where('id', $personnel['id'])
                                 ->update($_data);
                             $_id = $personnel['id'];
@@ -136,10 +142,12 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                     foreach ($subject->casts as $cast){
                         //获取 影片信息
                         $_data['name'] = $cast->name;
-                        $_data['avatars'] = $cast->avatars->large;
+                        if(isset($cast->avatars) && isset($cast->avatars->large)){
+                            $_data['avatars'] = $cast->avatars->large;
+                        }
                         try{
                             $personnel = Personnel::where('name', $cast->name)
-                                ->firstOrFail();
+                                ->first();
                             Personnel::where('id', $personnel['id'])
                                 ->update($_data);
                             $_id = $personnel['id'];
@@ -148,25 +156,25 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                         }
                         $casts[] = $_id;
                     }
-                    if($subject->genres){
+                    
+                    if(isset($subject->genres) && !empty($subject->genres)){
                         $datas['type'] = join("/", $subject->genres);
                     }
-                    if($subject->countries){
+                    if(isset($subject->countries) && !empty($subject->countries)){
                         $datas['country'] = join("/", $subject->countries);
                     }
-                    if($subject->year){
+                    if(isset($subject->year) && !empty($subject->year)){
                         $datas['year'] = $subject->year;
                     }
-                    if($subject->aka){
+                    if(isset($subject->aka) && !empty($subject->aka)){
                         $datas['alias'] = join(",", $subject->aka);
                     }
-                    if($subject->summary){
+                    if(isset($subject->summary) && !empty($subject->summary)){
                         $datas['content'] = $subject->summary;
                     }
-                    if($subject->rating){
+                    if(isset($subject->rating) && !empty($subject->rating)){
                         $datas['douban_rating'] = $subject->rating->average;
                     }
-
                     //director_ids
                     if($directors){
                         $datas['director_ids'] = json_encode($directors);
@@ -179,7 +187,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
             }
         }
         try{
-            $article = Article::where('sort', $collectionArticle->coll_id)->firstOrFail();
+            $article = Article::where('sort', $collectionArticle->coll_id)->first();
             Article::where('id', $article['id'])->update($datas);
             $res = $article['id'];
         }catch (ModelNotFoundException $e){

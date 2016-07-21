@@ -32,8 +32,16 @@ class Test extends Job implements ShouldQueue
     {
         //
         //Log::info('This is some useful information.');
-        $res = $articleRepositoryContract->checkArticle(65);
+        /*$res = $articleRepositoryContract->checkArticle(65);
         print_r($res);
-        die;
+        die;*/
+        //$checkArticleCls = new SendCheckArticles();
+        //$checkArticleCls->checkArticle(14);
+        $articleRepositoryContract->checkArticle(88);
+    }
+
+    //队列任务失败执行此方法
+    public function failed()
+    {
     }
 }

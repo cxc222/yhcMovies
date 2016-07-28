@@ -41,7 +41,7 @@ class SendCheckArticles extends Job implements ShouldQueue
             $res = $this->checkArticle($data['id']);
             if(!$res){
                 //失败 记录日志中
-                Log::error('collection error: check article error. id: '.$data['id']);
+                //Log::error('collection error: check article error. id: '.$data['id']);
             }else{
                 //提交到百度
                 $url = route('cms.detail', ['id' => $data['id'] ]);

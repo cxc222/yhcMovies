@@ -117,6 +117,12 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                 $subject = Douban::movie_subject($response->subjects[0]->id);
                 if($subject){
                     $datas['douban_id'] = $subject->id;
+
+                    //封面图
+                    if(isset($subject->images) && isset($subject->images->large)){
+                        $datas['cover'] = $subject->images->large;
+                    }
+
                     //导演
                     $directors = [];
                     foreach ($subject->directors as $director){

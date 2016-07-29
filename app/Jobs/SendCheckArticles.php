@@ -52,12 +52,7 @@ class SendCheckArticles extends Job implements ShouldQueue
     }
 
     public function checkArticle($id){
-          try{
-              $this->articleRepositoryContract->checkArticle($id);
-          }catch (ModelNotFoundException $e){
-
-          }
-        return ;
+        return $this->articleRepositoryContract->checkArticle($id);
     }
 
     //队列任务失败执行此方法

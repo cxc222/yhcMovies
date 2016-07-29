@@ -194,7 +194,7 @@ class EloquentArticleRepository implements ArticleRepositoryContract
             Article::where('id', $article['id'])->update($datas);
             $res = $article['id'];
         }else{
-            $res = Article::firstOrCreate($datas);
+            $res = Article::Create($datas);
         }
         if($res){
             //更新本身的 采集源的状态

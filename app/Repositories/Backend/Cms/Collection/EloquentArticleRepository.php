@@ -8,6 +8,7 @@ use App\Models\Cms\Article\Personnel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use PHPHtmlParser\Dom;
 use App\Libraries\Douban;
+use App\Libraries\Omdb;
 use DB;
 
 class EloquentArticleRepository implements ArticleRepositoryContract
@@ -34,13 +35,13 @@ class EloquentArticleRepository implements ArticleRepositoryContract
      * @param $id
      * @return mixed
      */
-    public function checkArticle($id)
+    public function checkArticle($id, $jump=false)
     {
         $collectionArticle = CollectionArticle::find($id);
         if(!$collectionArticle){
             return false;
         }
-        if($collectionArticle->status == 2){
+        if($collectionArticle->status == 2 && !$jump){
             //配对
             $article = Article::where('sort', $collectionArticle->coll_id)->first();
             if(!$article){
@@ -193,6 +194,18 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                         $datas['actor_ids'] = json_encode($casts);
                     }
                 }
+            }
+
+            //根据 电影名称 获取 imdbID 号 以及其他信息 http://www.omdbapi.com/
+            if(isset($subject) && isset($subject->original_title)){
+                $response = Omdb::search($subject->original_title);
+                if(isset($response->imdbRating)){
+                    $datas['imdb_rating'] = $response->imdbRating;
+                }
+                if(isset($response->Released)){
+                    $datas['release_date'] = date("Y-m-d", strtotime($response->Released));
+                }
+                $datas['imdb_id'] = $response->imdbID;
             }
         }
         $article = Article::where('sort', $collectionArticle->coll_id)->first();

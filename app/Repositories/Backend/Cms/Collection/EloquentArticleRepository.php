@@ -114,6 +114,8 @@ class EloquentArticleRepository implements ArticleRepositoryContract
         if(isset($alias) && !empty($alias)){
             //又名 有数据 调用 豆瓣电影的api - 通过 豆瓣的 api  更新本地的 电影信息
             $response = Douban::movie_search($alias[1][0]);
+            print_r($response);
+            die;
             if(isset($response->subjects[0]) && !empty($response->subjects[0])){
                 $subject = Douban::movie_subject($response->subjects[0]->id);
                 if($subject){
@@ -211,6 +213,8 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                 $datas['imdb_id'] = $response->imdbID;
             }
         }
+        print_r(222);
+        die;
         $article = Article::where('sort', $collectionArticle->coll_id)->first();
         if($article){
             Article::where('id', $article['id'])->update($datas);

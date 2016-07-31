@@ -18,6 +18,7 @@ class Omdb
         $parameter['plot'] = 'full';
         $parameter['tomatoes'] = 'true';
         if($t){
+            $t = urlencode($t);
             $parameter['t'] = $t;
             $url_param = http_build_query($parameter);
             $url = self::$base_url.'?'.$url_param;

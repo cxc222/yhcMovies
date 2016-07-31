@@ -22,6 +22,7 @@ class Douban
         // /v2/movie/search?q=张艺谋
         // /v2/movie/search?tag=喜剧
         if($q){
+            $q = urlencode($q);
             $url = self::$base_url."/v2/movie/search?q=$q";
         }else if($tag){
             $url = self::$base_url."/v2/movie/search?tag=$tag";
@@ -31,7 +32,6 @@ class Douban
         $response = \Httpful\Request::get($url)
             ->expectsJson()
             ->send();
-
         if($response->code != 200){
             return false;
         }

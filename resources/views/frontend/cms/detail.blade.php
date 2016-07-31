@@ -19,6 +19,11 @@
                             </div>
                             <div class="col-md-8" style="padding-right:20px;line-height: 25px;">
                                 <h3 style="margin-top:0px;">{!! $article->title !!}</h3>
+                                <div class="rating">
+                                    <strong>评分:</strong>
+                                    @if ($article->douban_rating)<i class="iconfont icon-ren text-success" title="豆瓣评分">{{ $article->douban_rating }}</i>@endif
+                                    @if ($article->imdb_rating)<i class="iconfont icon-imdb text-primary" title="IMDB评分"> {{ $article->imdb_rating }}</i>@endif
+                                </div>
                                 <strong>导演：</strong>{{ $article->director }}<br>
                                 <strong>主演：</strong>{{ $article->actors }}<br>
                                 <strong>上映时间：</strong>
@@ -27,10 +32,11 @@
                                 @endif
                                 <br>
                                 <strong>语言：</strong>{{ $article->language }}<br>
-                                <strong>片长：</strong>{{ $article->film_long }}<br>
+                                @if ($article->film_long)
+                                    <strong>片长：</strong>{{ $article->film_long }}<br>
+                                @endif
                                 <strong>国家：</strong>{{ $article->country }}<br>
                                 <strong>剧情简介：</strong>{!! $article->content !!}<br>
-
                                 <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
                                 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
                             </div>

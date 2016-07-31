@@ -15,12 +15,14 @@
                             @foreach ($article->typeArray as $type)
                                 <span style="padding:1px 3px;" class="label label-primary">{{ $type }}</span>&nbsp;
                             @endforeach
-                            @if ($article->douban_rating)
-                                <span class="text-danger">
-                                    <img src="https://img3.doubanio.com/pics/douban-icons/favicon_16x16.png" />
-                                    {{ $article->douban_rating }}
-                                </span>
-                            @endif
+                            <span class="rating">
+                                @if ($article->douban_rating)
+                                    <i class="iconfont icon-ren text-success" title="豆瓣评分">{{ $article->douban_rating }}</i>
+                                @endif
+                                @if ($article->imdb_rating)
+                                    <i class="iconfont icon-imdb text-primary" title="IMDB评分"> {{ $article->imdb_rating }}</i>
+                                @endif
+                            </span>
                             <br>
                             <small class="text-muted">导演：{!! $article->director !!}</small>
                             <small class="text-muted">演员：{!! $article->actors !!}</small>

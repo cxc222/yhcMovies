@@ -79,4 +79,9 @@ body {
 .footer p:last-child {
     margin-bottom: 0;
 }
+
+
+.rating i{
+    font-size: 20px;
+}
 /*# sourceMappingURL=frontend.css.map */

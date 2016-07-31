@@ -13,6 +13,7 @@ class BaiduSeo
     public static function push($body){
         $body = json_encode($body);
         $response = \Httpful\Request::post(self::$url)
+            ->addHeader('Content-Type', 'text/plain')
             ->body($body)
             ->send();
         return $response->body;

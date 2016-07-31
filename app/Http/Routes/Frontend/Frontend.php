@@ -31,6 +31,12 @@ Route::group(['namespace' => 'Cms'], function() {
 });
 
 Route::get('test', function (App\Repositories\Backend\Cms\Collection\ArticleRepositoryContract $articleRepositoryContract){
+
+    /*$url = route('cms.detail', ['id' => 130 ]);
+    $baidu = new App\Jobs\Baidu($url);
+
+    print_r($baidu->handle());
+    die;*/
     /*$omdb = new \App\Libraries\Omdb();
     print_r($omdb->search('Emma\'s Chance'));
     die;*/
@@ -43,9 +49,9 @@ Route::get('test', function (App\Repositories\Backend\Cms\Collection\ArticleRepo
     print_r($res);
     die;*/
 
-    $res = $articleRepositoryContract->checkArticle(115, true);
+    /*$res = $articleRepositoryContract->checkArticle(115, true);
     print_r($res);
-    die;
+    die;*/
 
     /*preg_match_all("/(?:《)(.*)(?:》)/i", "2016高分剧情《魔兽》HD720P.中英双字", $alias);
     //$b = \App\Libraries\Douban::movie_search($alias[1][0]);

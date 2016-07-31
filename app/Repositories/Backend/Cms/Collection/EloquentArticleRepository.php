@@ -185,6 +185,9 @@ class EloquentArticleRepository implements ArticleRepositoryContract
                     if(isset($subject->rating) && !empty($subject->rating)){
                         $datas['douban_rating'] = $subject->rating->average;
                     }
+                    if(isset($subject->original_title) && !empty($subject->original_title)){
+                        $datas['original_title'] = $subject->original_title;
+                    }
                     //director_ids
                     if($directors){
                         $datas['director_ids'] = json_encode($directors);

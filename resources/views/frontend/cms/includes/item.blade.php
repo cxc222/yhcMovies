@@ -23,8 +23,8 @@
                     </a>
                    &nbsp;
                 @endforeach
-                @if ($article->douban_rating)<i class="iconfont icon-ren text-success" title="豆瓣评分">{{ $article->douban_rating }}</i>@endif
-                @if ($article->imdb_rating)<i class="iconfont icon-imdb text-primary" title="IMDB评分"> {{ $article->imdb_rating }}</i>@endif
+                @if ($article->douban_rating != null )<i class="iconfont icon-ren text-success" title="豆瓣评分">{{ $article->douban_rating }}</i>@endif
+                @if ($article->imdb_rating != null )<i class="iconfont icon-imdb text-primary" title="IMDB评分"> {{ $article->imdb_rating }}</i>@endif
                 <br />
                 <strong>地区：</strong>{{ $article->country }}
                 <br />

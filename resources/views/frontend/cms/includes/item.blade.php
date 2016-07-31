@@ -1,13 +1,11 @@
 <li>
     <div class="row">
         <div class="col-md-2">
-            <div class="thumbnail">
-                <a href="{!! route('cms.detail', ['id' => $article->id ]) !!}" target="_blank">
-                    <img src="{!! $article->cover !!}" alt="{!! $article->title !!}" title="{!! $article->title !!}">
-                </a>
-            </div>
+            <a href="{!! route('cms.detail', ['id' => $article->id ]) !!}" target="_blank" class="thumbnail" style="margin-bottom: 0px;">
+                <img src="{!! $article->cover !!}" alt="{!! $article->title !!}" title="{!! $article->title !!}">
+            </a>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-10 clearfix">
             <h4>
                 <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
                 <a href="{!! route('cms.detail', ['id' => $article->id ]) !!}" target="_blank">{!! $article->title !!}</a>
@@ -25,6 +23,8 @@
                     </a>
                    &nbsp;
                 @endforeach
+                @if ($article->douban_rating)<i class="iconfont icon-ren text-success" title="豆瓣评分">{{ $article->douban_rating }}</i>@endif
+                @if ($article->imdb_rating)<i class="iconfont icon-imdb text-primary" title="IMDB评分"> {{ $article->imdb_rating }}</i>@endif
                 <br />
                 <strong>地区：</strong>{{ $article->country }}
                 <br />
@@ -33,6 +33,5 @@
                 <strong>主演：</strong>{{ $article->actors }}
             </p>
         </div>
-        <div class="clearfix"></div>
     </div>
 </li>

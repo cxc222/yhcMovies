@@ -114,8 +114,6 @@ class EloquentArticleRepository implements ArticleRepositoryContract
         if(isset($alias) && !empty($alias)){
             //又名 有数据 调用 豆瓣电影的api - 通过 豆瓣的 api  更新本地的 电影信息
             $response = Douban::movie_search($alias[1][0]);
-            print_r($response);
-            die;
             if(isset($response->subjects[0]) && !empty($response->subjects[0])){
                 $subject = Douban::movie_subject($response->subjects[0]->id);
                 if($subject){
@@ -204,17 +202,19 @@ class EloquentArticleRepository implements ArticleRepositoryContract
             //根据 电影名称 获取 imdbID 号 以及其他信息 http://www.omdbapi.com/
             if(isset($subject) && isset($subject->original_title)){
                 $response = Omdb::search($subject->original_title);
-                if(isset($response->imdbRating)){
-                    $datas['imdb_rating'] = $response->imdbRating;
+                if($response){
+                    if(isset($response->imdbRating)){
+                        $datas['imdb_rating'] = $response->imdbRating;
+                    }
+                    if(isset($response->Released)){
+                        $datas['release_date'] = date("Y-m-d", strtotime($response->Released));
+                    }
+                    if(isset($response->imdbID)){
+                        $datas['imdb_id'] = $response->imdbID;
+                    }
                 }
-                if(isset($response->Released)){
-                    $datas['release_date'] = date("Y-m-d", strtotime($response->Released));
-                }
-                $datas['imdb_id'] = $response->imdbID;
             }
         }
-        print_r(222);
-        die;
         $article = Article::where('sort', $collectionArticle->coll_id)->first();
         if($article){
             Article::where('id', $article['id'])->update($datas);

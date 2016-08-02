@@ -23,13 +23,15 @@ class Douban
         // /v2/movie/search?tag=喜剧
         if($q){
             $q = urlencode($q);
-            $url = self::$base_url."/v2/movie/search?q=$q";
+            $url = self::$base_url."v2/movie/search?q=$q";
         }else if($tag){
-            $url = self::$base_url."/v2/movie/search?tag=$tag";
+            $url = self::$base_url."v2/movie/search?tag=$tag";
         }else{
             return false;
         }
         $response = \Httpful\Request::get($url)
+            ->addHeader('User-Agent', 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/47.0.2526.70 Mobile/13B143 Safari/601.1.46')
+            ->addHeader('Host', 'api.douban.com')
             ->expectsJson()
             ->send();
         if($response->code != 200){

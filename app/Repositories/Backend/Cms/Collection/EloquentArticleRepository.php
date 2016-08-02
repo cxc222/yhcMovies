@@ -50,7 +50,8 @@ class EloquentArticleRepository implements ArticleRepositoryContract
             if($article->title == $collectionArticle->title
                 || $article->down_url == $collectionArticle->down_url
                 || $article->down_url_cyclone == $collectionArticle->down_url_cyclone
-                || $article->down_url_xunlei == $collectionArticle->down_url_xunlei){
+                || $article->down_url_xunlei == $collectionArticle->down_url_xunlei
+                || $article->douban_id == 0){
                 return false;
             }
         }
@@ -114,103 +115,112 @@ class EloquentArticleRepository implements ArticleRepositoryContract
         if(isset($alias) && !empty($alias)){
             //又名 有数据 调用 豆瓣电影的api - 通过 豆瓣的 api  更新本地的 电影信息
             $response = Douban::movie_search($alias[1][0]);
-            if(isset($response->subjects[0]) && !empty($response->subjects[0])){
-                $subject = Douban::movie_subject($response->subjects[0]->id);
-                if($subject){
-                    $datas['douban_id'] = $subject->id;
-
-                    //封面图
-                    if(isset($subject->images) && isset($subject->images->large)){
-                        $datas['cover'] = $subject->images->large;
-                    }
-
-                    //导演
-                    $directors = [];
-                    foreach ($subject->directors as $director){
-                        //获取 影片信息
-                        $_data['name'] = $director->name;
-                        if(isset($director->avatars) && isset($director->avatars->large)){
-                            $_data['avatars'] = $director->avatars->large;
-                        }
-                        if($_data['name']){
-                            $personnel = Personnel::where('name', $director->name)
-                                ->first();
-                            if($personnel){
-                                Personnel::where('id', $personnel['id'])
-                                    ->update($_data);
-                                $_id = $personnel['id'];
-                            }else{
-                                $_id = Personnel::firstOrCreate($_data);
-                            }
-                        }
-                        $directors[] = $_id;
-                    }
-
-                    //主演
-                    $casts = [];
-                    foreach ($subject->casts as $cast){
-                        //获取 影片信息
-                        $_data['name'] = $cast->name;
-                        if(isset($cast->avatars) && isset($cast->avatars->large)){
-                            $_data['avatars'] = $cast->avatars->large;
-                        }
-                        if($_data['name']){
-                            $personnel = Personnel::where('name', $cast->name)
-                                ->first();
-                            if($personnel){
-                                Personnel::where('id', $personnel['id'])
-                                    ->update($_data);
-                                $_id = $personnel['id'];
-                            }else{
-                                $_id = Personnel::firstOrCreate($_data);
-                            }
-                        }
-                        $casts[] = $_id;
-                    }
-                    if(isset($subject->genres) && !empty($subject->genres)){
-                        $datas['type'] = join("/", $subject->genres);
-                    }
-                    if(isset($subject->countries) && !empty($subject->countries)){
-                        $datas['country'] = join("/", $subject->countries);
-                    }
-                    if(isset($subject->year) && !empty($subject->year)){
-                        $datas['year'] = $subject->year;
-                    }
-                    if(isset($subject->aka) && !empty($subject->aka)){
-                        $datas['alias'] = join(",", $subject->aka);
-                    }
-                    if(isset($subject->summary) && !empty($subject->summary)){
-                        $datas['content'] = $subject->summary;
-                    }
-                    if(isset($subject->rating) && !empty($subject->rating)){
-                        $datas['douban_rating'] = $subject->rating->average;
-                    }
-                    if(isset($subject->original_title) && !empty($subject->original_title)){
-                        $datas['original_title'] = $subject->original_title;
-                    }
-                    //director_ids
-                    if($directors){
-                        $datas['director_ids'] = json_encode($directors);
-                    }
-                    //actor_ids
-                    if($casts){
-                        $datas['actor_ids'] = json_encode($casts);
+            if($response){
+                $subjects_id = 0;
+                foreach ($response->subjects as $subjects){
+                    if($subjects->title == $alias[1][0] && $subjects->subtype == 'movie'){
+                        $subjects_id = $subjects->id;
                     }
                 }
-            }
+                if(!empty($subjects_id)){
+                    $subject = Douban::movie_subject($subjects_id);
+                    if($subject){
+                        $datas['douban_id'] = $subject->id;
 
-            //根据 电影名称 获取 imdbID 号 以及其他信息 http://www.omdbapi.com/
-            if(isset($subject) && isset($subject->original_title)){
-                $response = Omdb::search($subject->original_title);
-                if($response){
-                    if(isset($response->imdbRating)){
-                        $datas['imdb_rating'] = $response->imdbRating;
-                    }
-                    if(isset($response->Released)){
-                        $datas['release_date'] = date("Y-m-d", strtotime($response->Released));
-                    }
-                    if(isset($response->imdbID)){
-                        $datas['imdb_id'] = $response->imdbID;
+                        //封面图
+                        if(isset($subject->images) && isset($subject->images->large)){
+                            $datas['cover'] = $subject->images->large;
+                        }
+
+                        //导演
+                        $directors = [];
+                        foreach ($subject->directors as $director){
+                            //获取 影片信息
+                            $_data['name'] = $director->name;
+                            if(isset($director->avatars) && isset($director->avatars->large)){
+                                $_data['avatars'] = $director->avatars->large;
+                            }
+                            if($_data['name']){
+                                $personnel = Personnel::where('name', $director->name)
+                                    ->first();
+                                if($personnel){
+                                    Personnel::where('id', $personnel['id'])
+                                        ->update($_data);
+                                    $_id = $personnel['id'];
+                                }else{
+                                    $_id = Personnel::firstOrCreate($_data);
+                                }
+                            }
+                            $directors[] = $_id;
+                        }
+
+                        //主演
+                        $casts = [];
+                        foreach ($subject->casts as $cast){
+                            //获取 影片信息
+                            $_data['name'] = $cast->name;
+                            if(isset($cast->avatars) && isset($cast->avatars->large)){
+                                $_data['avatars'] = $cast->avatars->large;
+                            }
+                            if($_data['name']){
+                                $personnel = Personnel::where('name', $cast->name)
+                                    ->first();
+                                if($personnel){
+                                    Personnel::where('id', $personnel['id'])
+                                        ->update($_data);
+                                    $_id = $personnel['id'];
+                                }else{
+                                    $_id = Personnel::firstOrCreate($_data);
+                                }
+                            }
+                            $casts[] = $_id;
+                        }
+                        if(isset($subject->genres) && !empty($subject->genres)){
+                            $datas['type'] = join("/", $subject->genres);
+                        }
+                        if(isset($subject->countries) && !empty($subject->countries)){
+                            $datas['country'] = join("/", $subject->countries);
+                        }
+                        if(isset($subject->year) && !empty($subject->year)){
+                            $datas['year'] = $subject->year;
+                        }
+                        if(isset($subject->aka) && !empty($subject->aka)){
+                            $datas['alias'] = join(",", $subject->aka);
+                        }
+                        if(isset($subject->summary) && !empty($subject->summary)){
+                            $datas['content'] = $subject->summary;
+                        }
+                        if(isset($subject->rating) && !empty($subject->rating)){
+                            $datas['douban_rating'] = $subject->rating->average;
+                        }
+                        if(isset($subject->original_title) && !empty($subject->original_title)){
+                            $datas['original_title'] = $subject->original_title;
+                        }
+                        //director_ids
+                        if($directors){
+                            $datas['director_ids'] = json_encode($directors);
+                        }
+                        //actor_ids
+                        if($casts){
+                            $datas['actor_ids'] = json_encode($casts);
+                        }
+
+                        //根据 电影名称 获取 imdbID 号 以及其他信息 http://www.omdbapi.com/
+                        if(isset($subject->original_title) && !empty($subject->original_title)){
+                            $response = Omdb::search($subject->original_title);
+                            if($response){
+                                if(isset($response->imdbRating)){
+                                    $datas['imdb_rating'] = $response->imdbRating;
+                                }
+                                if(isset($response->Released)){
+                                    $datas['release_date'] = date("Y-m-d", strtotime($response->Released));
+                                }
+                                if(isset($response->imdbID)){
+                                    $datas['imdb_id'] = $response->imdbID;
+                                }
+                            }
+                        }
+
                     }
                 }
             }

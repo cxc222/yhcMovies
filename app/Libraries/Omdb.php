@@ -22,7 +22,6 @@ class Omdb
             $parameter['t'] = $t;
             $url_param = http_build_query($parameter);
             $url = self::$base_url.'?'.$url_param;
-
             $response = \Httpful\Request::get($url)
                 ->expectsJson()
                 ->send();

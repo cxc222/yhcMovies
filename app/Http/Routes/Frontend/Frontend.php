@@ -49,7 +49,7 @@ Route::get('test', function (App\Repositories\Backend\Cms\Collection\ArticleRepo
     print_r($res);
     die;*/
 
-    /*$res = $articleRepositoryContract->checkArticle(115, true);
+    /*$res = $articleRepositoryContract->checkArticle(117, true);
     print_r($res);
     die;*/
 

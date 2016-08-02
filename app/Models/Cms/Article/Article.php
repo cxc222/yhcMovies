@@ -48,6 +48,9 @@ class Article extends Model
         'douban_id',
         'douban_rating',
         'director_ids',
-        'actor_ids'
+        'actor_ids',
+        'original_title',
+        'imdb_rating',
+        'imdb_id'
     ];
 }

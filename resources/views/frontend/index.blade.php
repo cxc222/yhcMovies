@@ -12,9 +12,11 @@
                             <a href="{!! route('cms.detail', ['id' => $article->id ]) !!}" target="_blank">
                                 {!! $article->title !!}
                             </a>
-                            @foreach ($article->typeArray as $type)
-                                <span style="padding:1px 3px;" class="label label-primary">{{ $type }}</span>&nbsp;
-                            @endforeach
+                            @if ($article->typeArray)
+                                @foreach ($article->typeArray as $type)
+                                    <span style="padding:1px 3px;" class="label label-primary">{{ $type }}</span>&nbsp;
+                                @endforeach
+                            @endif
                             <span class="rating">
                                 @if ($article->douban_rating)
                                     <i class="iconfont icon-ren text-success" title="豆瓣评分">{{ $article->douban_rating }}</i>

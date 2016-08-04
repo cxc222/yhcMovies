@@ -41,7 +41,9 @@ class EloquentArticleRepository implements ArticleRepositoryContract
             ->orderBy('updated_at', 'desc')
             ->paginate($per_page);
         foreach ($articles as &$article){
-            $article->typeArray = explode("/", $article->type);
+            if($article->type){
+                $article->typeArray = explode("/", $article->type);
+            }
         }
         return $articles;
     }

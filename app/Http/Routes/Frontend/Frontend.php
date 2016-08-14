@@ -32,6 +32,27 @@ Route::group(['namespace' => 'Cms'], function() {
 
 Route::get('test', function (App\Repositories\Backend\Cms\Collection\ArticleRepositoryContract $articleRepositoryContract){
 
+
+    $string = "我在马路边, 捡到一分钱. 不知道失主还要不要? 我很害怕!";
+    //$re = '~([\[\]\,.?"\(\)+_*\/\\&\$#^@!%~`<>:;\{\}？，。·！￥……（）+｛｝【】、|《》]|(?!\s)\'\s+|\s+\'(?!\s))~u';
+    //$m = preg_replace("/([:punct:])+/U", '', $string);
+    //$re = '/[\\pP]/';
+    //preg_match_all($re, $string, $m);
+    $re = "/[[:punct:]]/i";
+    /*$m = preg_replace_callback($re, function($matches){
+        print_r($matches[0]);
+        die;
+    }, $string);*/
+    preg_match_all($re, $string, $m);
+    //preg_match_all($reg, $string, $m);
+    print_r($m);
+    die;
+
+    /*$faker = new Faker\Generator();
+    $faker->addProvider(new \App\Libraries\Random\Comment($faker));
+    //$faker = Faker\Factory::create('zh_CN');
+    print_r($faker->realText);
+    die;*/
     /*$url = route('cms.detail', ['id' => 130 ]);
     $baidu = new App\Jobs\Baidu($url);
 

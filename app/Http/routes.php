@@ -38,3 +38,16 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'ad
 
     require (__DIR__ . '/Routes/Backend/Cms.php');
 });
+
+/**
+ * API APP Routes
+ */
+Route::group(['middleware' => 'web'], function() {
+    /**
+     * Frontend Routes
+     * Namespaces indicate folder structure
+     */
+    Route::group(['namespace' => 'Api'], function () {
+        require (__DIR__ . '/Routes/Api/Frontend.php');
+    });
+});

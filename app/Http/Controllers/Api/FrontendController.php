@@ -52,7 +52,7 @@ class FrontendController extends Controller
      * @param string $data
      * @return \Illuminate\Http\JsonResponse
      */
-    public function showJson($msg = "", $status = 1, $data = '')
+    public function showJson($status = 1, $msg = "", $data = '')
     {
         return response()
             ->json([

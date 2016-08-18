@@ -30,6 +30,35 @@ Route::group(['namespace' => 'Cms'], function() {
         ->name('cms.search.tag');
 });
 
+/**
+ * 测试列表
+ */
+Route::get('test_list', function (){
+    return response()->json([
+        'status' => 1,
+        'data' => [
+            [
+                'id' => 1,
+                'title' => '测试1',
+                'content' => '测试内容1',
+                'frontCover' => 'http://img1.mm131.com/pic/2601/9.jpg'
+            ],
+            [
+                'id' => 2,
+                'title' => '测试2',
+                'content' => '测试内容2',
+                'frontCover' => 'http://img1.mm131.com/pic/2603/6.jpg'
+            ],
+            [
+                'id' => 3,
+                'title' => '测试3',
+                'content' => '测试内容3',
+                'frontCover' => 'http://img1.mm131.com/pic/2608/16.jpg'
+            ]
+        ]
+    ]);
+});
+
 Route::get('test', function (App\Repositories\Backend\Cms\Collection\ArticleRepositoryContract $articleRepositoryContract){
 
 

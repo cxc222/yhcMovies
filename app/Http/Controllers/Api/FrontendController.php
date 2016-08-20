@@ -26,7 +26,24 @@ class FrontendController extends Controller
         $articles = $this
             ->articles
             ->getArticlePaginated(25, 1);
-        return $this->successJson("ok", $articles);
+        $_articles = [];
+        if($articles){
+            foreach ($articles as $article){
+                $_articles[] = [
+                    'id' => $article['id'],
+                    'title' => $article['title'],
+                    'original_title' => $article['original_title'],
+                    'cover' => $article['cover'],
+                    'country' => $article['country'],
+                    'year' => $article['year'],
+                    'release_date' => $article['release_date'],
+                    'director' => $article['director'],
+                    'actors' => $article['actors'],
+                    'content' => $article['content'],
+                ];
+            }
+        }
+        return $this->successJson("ok", $_articles);
     }
 
 
